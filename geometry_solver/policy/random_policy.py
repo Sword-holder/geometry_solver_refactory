@@ -7,5 +7,5 @@ class RandomPolicy(BasePolicy):
         pass
 
     def chose_action(self):
-        
+        pass
 
