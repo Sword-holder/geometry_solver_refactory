@@ -8,4 +8,7 @@ class Condition(object):
 
     def match(self, target: Target) -> bool:
         raise NotImplementedError
+
+    def __hash__(self):
+        return NotImplemented
     

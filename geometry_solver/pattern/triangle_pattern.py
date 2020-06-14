@@ -63,12 +63,21 @@ class TrianglePattern(Pattern):
                 and match(self.line_AC, other.line_AC) \
                 and match(self.circumference, other.circumference) \
                 and match(self.area, other.area)
-    
-    def __key(self):
-        return (self.angle_A, self.angle_B, self.angle_C,\
-                self.line_AB, self.line_BC, self.line_AC,\
-                self.circumference, self.area)
-    
-    def __hash__(self):
-        return hash(self.__key())
+
+    def __str__(self):
+        translate = {
+            AttributeState.KNOWN: 'KNOWN',
+            AttributeState.UNKNOWN: 'UNKNOWN',
+            AttributeState.NOT_MATTER: 'NOT MATTER'
+        }
+        return '(TrianglePattern:' \
+              + ' angle_A: ' + translate[self.angle_A] \
+              + ' angle_B: ' + translate[self.angle_B] \
+              + ' angle_C: ' + translate[self.angle_C] \
+              + ' line_BC: ' + translate[self.line_BC] \
+              + ' line_AC: ' + translate[self.line_AC] \
+              + ' line_AB: ' + translate[self.line_AB] \
+              + ' circumference: ' + translate[self.circumference] \
+              + ' area: ' + translate[self.area] \
+              + ')'
 

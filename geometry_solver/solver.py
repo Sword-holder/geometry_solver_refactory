@@ -55,7 +55,12 @@ class Solver(object):
         while not graph.solved:
             theorem = self.policy.chose_theorem()
             # Traverse all [sources, target] pair that meet requirement of theorem.
-            for srcs, tg in theorem.index():
+            for srcs, tg in theorem.index(indexer):
                 tg = theorem.deduct(srcs, tg)
                 graph.expand(tg)
+                tg.from_conditions = srcs
+        
+        print('Problem solved succesfully!')
+        print(graph.solving_path())
+        graph.show_graph()
 

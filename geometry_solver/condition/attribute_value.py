@@ -13,6 +13,7 @@ class AttributeValue(Condition):
     """
     
     def __init__(self, obj, **attr_dict):
+        super().__init__()
         self.obj = obj
         if len(attr_dict) != 1:
             raise ValueError("AttributeValue condition can only keep 1 attribute's value.")
@@ -21,5 +22,17 @@ class AttributeValue(Condition):
 
     def match(self, target: Target) -> bool:
         return self.obj == target.obj \
-                and target.attr in self.attr_value
+                and target.attr == self.attr_name
+
+    def __str__(self):
+        return self.obj.id + '.' + self.attr_name  + ' = ' + str(self.attr_value)
+
+    def __keys(self):
+        return (self.obj, self.attr_name, self.attr_value)
+
+    def __hash__(self):
+        return self.__keys().__hash__()
+
+    def __eq__(self, other):
+        return self.__keys() == other.__keys()
     

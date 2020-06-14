@@ -14,4 +14,7 @@ class RelationshipBased(Condition):
     def __init__(self, relationship: Relationship):
         self.relationship = relationship
 
+    def __hash__(self):
+        return (self.relationship).__hash__()
+
 

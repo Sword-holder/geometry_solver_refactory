@@ -14,7 +14,7 @@ class TriangleAngleSum(Theorem):
     def index(self, indexer: Indexer):
         pattern = TrianglePattern(
             angle_A=AttributeState.KNOWN,
-            angle_B=AttributeState.KNOWN
+            angle_B=AttributeState.KNOWN,
             angle_C=AttributeState.UNKNOWN
         )
         # After index pattern.angle_A and pattern.angle_B are 

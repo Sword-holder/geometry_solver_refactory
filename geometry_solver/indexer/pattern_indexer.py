@@ -27,14 +27,19 @@ class PatternIndexer(BaseIndexer):
             graph: DeductionGraph):
         self.entity = entity
         self.graph = graph
-        self.table = {}
+        self.triangle_pattern_table = []
         for e in entity.children:
             if type(e) in self.dispatch_map.keys():
                 # Extract pattern from entity.
                 for p, vp in self._extract_pattern(e):
-                    if p not in self.table:
-                        self.table[p] = [] 
-                    self.table[p].append(vp)
+                    found = False
+                    for pt, vp_list in self.triangle_pattern_table:
+                        if p == pt:
+                            found = True
+                            vp_list.append(vp)
+                            break
+                    if not found:
+                        self.triangle_pattern_table.append((p, [vp]))
 
     def update_index(self, 
             new_condition: Condition=None,
@@ -45,7 +50,10 @@ class PatternIndexer(BaseIndexer):
     def index(self, pattern: Pattern):
         """Return a list of modified pattern whose UNKOWN attributes 
             are replaced by AttributeValue condition."""
-        return self.table[pattern]
+        for p, vp_list in self.triangle_pattern_table:
+            if pattern == p:
+                return vp_list
+        return []
     
     def _extract_pattern(self, entity: Entity):
         """This method is responsible for dispatch pattern extraction 
