@@ -24,10 +24,9 @@ class TriangleAngleSum(Theorem):
         repleced_patterns = indexer.index_by_pattern(pattern)
         return [([p.angle_A, p.angle_B], p.angle_C) for p in repleced_patterns]
 
-
     def deduct(self, sources: List[Condition], target: Condition):
         target.attr_value = 180 \
                             - sources[0].attr_value \
                             - sources[1].attr_value
-        return target
+        return sources, target
 

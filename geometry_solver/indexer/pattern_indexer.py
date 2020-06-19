@@ -77,8 +77,7 @@ class PatternIndexer(BaseIndexer):
             Line: 'length'
         }
         
-        conds = self.graph.conditions
-        value_conds = [c for c in conds if type(c) == AttributeValue]
+        value_conds = self.graph.attr_value_conds
         
         def find_obj(obj, attr=None):
             for c in value_conds:

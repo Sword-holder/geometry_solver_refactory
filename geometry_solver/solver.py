@@ -15,6 +15,8 @@ class Solver(object):
             target: Target=None,
             conditions: List[Condition]=None,
             policy: BasePolicy=None):
+        if len(entity.children) == 0:
+            raise ValueError("Problem entity is empty!")
         self.entity = entity
         self.target = target
         self.conditions = conditions
@@ -56,11 +58,13 @@ class Solver(object):
             theorem = self.policy.chose_theorem()
             # Traverse all [sources, target] pair that meet requirement of theorem.
             for srcs, tg in theorem.index(indexer):
-                tg = theorem.deduct(srcs, tg)
+                srcs, tg = theorem.deduct(srcs, tg)
                 graph.expand(tg)
                 tg.from_conditions = srcs
         
         print('Problem solved succesfully!')
         print(graph.solving_path())
         graph.show_graph()
+        
+        return graph
 

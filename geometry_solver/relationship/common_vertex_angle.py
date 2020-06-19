@@ -7,20 +7,20 @@ from geometry_solver.relationship import Relationship
 
 class CommonVertexAngle(Relationship):
 
-    def __init__(self, id_: str, vertex: Point, lines: List[Line]):
+    def __init__(self, id_: str, vertex: Point, ends: List[Point]):
         super(CommonVertexAngle, self).__init__(id_)
         self.vertex = vertex
-        self.lines = lines
+        self.ends = ends
     
     def __str__(self):
         return '(' \
-            + 'CommonVertexAngle relationship ' \
+            + 'CommonVertexAngle ' \
             + self.id \
             + ': ' \
             + 'vertex = [' \
             + str(self.vertex) \
-            + ', lines: ' \
-            + ','.join([p.id for p in self.lines]) \
+            + ', ends: ' \
+            + ','.join([p.id for p in self.ends]) \
             + ']' \
             + ')'
 

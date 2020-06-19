@@ -11,7 +11,7 @@ class Collineation(Relationship):
 
     def __str__(self):
         return '(' \
-            + 'Collineation relationship ' \
+            + 'Collineation' \
             + self.id \
             + ': ' \
             + 'points = [' \

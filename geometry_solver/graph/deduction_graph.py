@@ -4,7 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 from geometry_solver.target.target import Target
-from geometry_solver.condition.condition import Condition
+from geometry_solver.condition import Condition, AttributeValue
 
 
 class DeductionGraph(object):
@@ -13,6 +13,8 @@ class DeductionGraph(object):
             conditions: List[Condition],
             target: Target):
         self.conditions = conditions
+        self.attr_value_conds = \
+                [c for c in conditions if type(c) == AttributeValue]
         self.target = target
         self.solved = self._target_solved(conditions, target)
         self.target_node = None
@@ -23,6 +25,9 @@ class DeductionGraph(object):
         :param new_condition: a new condition add to graph.
         """
         self.conditions.append(new_condition)
+        if type(new_condition) == AttributeValue:
+            self.attr_value_conds.append(new_condition)
+        
         if not self.solved \
                 and self._target_solved([new_condition], self.target):
             self.target_node = new_condition

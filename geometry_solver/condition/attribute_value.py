@@ -34,5 +34,7 @@ class AttributeValue(Condition):
         return self.__keys().__hash__()
 
     def __eq__(self, other):
+        if not isinstance(other, AttributeValue):
+            return False
         return self.__keys() == other.__keys()
     
