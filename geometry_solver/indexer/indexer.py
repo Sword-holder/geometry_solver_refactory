@@ -7,7 +7,7 @@ from geometry_solver.indexer.pattern_indexer import PatternIndexer
 from geometry_solver.indexer.type_indexer import TypeIndexer
 from geometry_solver.indexer.value_indexer import ValueIndexer
 from geometry_solver.indexer.topology_indexer import TopologyIndexer
-from geometry_solver.entity import Entity, Line
+from geometry_solver.entity import Entity, Line, Point
 from geometry_solver.pattern.pattern import Pattern
 from geometry_solver.condition import Condition, AttributeValue
 from geometry_solver.graph.deduction_graph import DeductionGraph
@@ -112,3 +112,15 @@ class Indexer(BaseIndexer):
         """
         return self.topology_indexer.index_angle_by_points(end1, vertex, end2)
         
+    def index_collineation_by_line(self, line):
+        """Find collineation relationship by line.
+        
+        Return a list of collinear points.
+        
+        
+        """
+        col_str = self.topology_indexer.index_collineation_by_line(line)
+        points = []
+        for p_str in col_str:
+            points.append(self.index_by_name(p_str, Point))
+        return points

@@ -7,6 +7,9 @@ from geometry_solver.theorem.perpendicular_angle import PerpendicularAngle
 from geometry_solver.theorem.opposite_vertical_angle_equality import OppositeVertivalAngleEquality
 from geometry_solver.theorem.triangle_circumference import TriangleCircumference
 from geometry_solver.theorem.triangle_area import TriangleArea
+from geometry_solver.theorem.law_of_cosine_1 import LawOfCosine1
+from geometry_solver.theorem.law_of_cosine_2 import LawOfCosine2
+from geometry_solver.theorem.law_of_sine import LawOfSine
 
 valid_theorem = [
     TriangleAngleSum,
@@ -16,5 +19,8 @@ valid_theorem = [
     PerpendicularAngle,
     OppositeVertivalAngleEquality,
     TriangleCircumference,
-    TriangleArea
+    TriangleArea,
+    LawOfCosine1,
+    LawOfCosine2,
+    LawOfSine
 ]

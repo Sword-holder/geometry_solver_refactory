@@ -10,16 +10,10 @@ class Parallel(Relationship):
     def __init__(self, 
                  id_: str, 
                  line1: Line,
-                 line2: Line,
-                 reverse=False,
-                 colllineation1: Collineation=None, 
-                 colllineation2: Collineation=None):
+                 line2: Line):
         super(Parallel, self).__init__(id_)
         self.line1 = line1
         self.line2 = line2
-        self.reverse = reverse
-        self.colllineation1 = colllineation1
-        self.colllineation2 = colllineation2
     
     def __str__(self):
         return '(' \

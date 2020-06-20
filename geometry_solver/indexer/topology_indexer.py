@@ -97,4 +97,20 @@ class TopologyIndexer(BaseIndexer):
         if end1 > end2:
             end1, end2 = end2, end1
         return end1 + vertex + end2
+    
 
+    def index_collineation_by_line(self, line):
+        """Return a list of point's name."""
+        if type(line) == Point:
+            line = line.id
+        return self._index_collineation_by_line(line)
+        
+    def _index_collineation_by_line(self, line_str):
+        """Return None if collineation not found."""
+        end1 = line_str[0]
+        end2 = line_str[1]
+        for col in self.collineation:
+            if col.find(end1) != -1 and col.find(end) != -1:
+                return col
+        return None
+        
