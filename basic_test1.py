@@ -5,6 +5,7 @@ from geometry_solver import Target, Solver
 
 
 def get_problem():
+    """Test for line sum."""
     # Initialize problem structure.
     p_a = Point('A')
     p_b = Point('B')

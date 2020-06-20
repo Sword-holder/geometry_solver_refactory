@@ -10,7 +10,7 @@ from geometry_solver.relationship import CommonVertexAngle
 class CommonVertexAngleSum(Theorem):
 
     def __init__(self):
-        super(CommonVertexAngleSum, self).__init__()
+        super().__init__()
         
     def _find_common_vertex_angle(self, 
             cva_cond: RelationshipBased, 
@@ -18,7 +18,7 @@ class CommonVertexAngleSum(Theorem):
         r = cva_cond.relationship
         vertex = r.vertex
         ends = r.ends
-        size = len(lines)
+        size = len(ends)
         for i in range(size):
             for j in range(i + 1, size):
                 for k in range(j + 1, size):
@@ -41,7 +41,7 @@ class CommonVertexAngleSum(Theorem):
         conditions = []
         cvas = indexer.index_by_type(CommonVertexAngle)
         for cva_cond in cvas:
-            cond = self._find_common_vertex_angle(cva_cond)
+            cond = self._find_common_vertex_angle(cva_cond, indexer)
             if cond is not None:
                 conditions.append(cond)
         return conditions

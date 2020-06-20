@@ -23,26 +23,27 @@ def get_problem():
             side1=line_ab, side2=line_bc, side3=line_ac,
             angle1=angle_c, angle2=angle_a, angle3=angle_b)
     
-    entity = Entity('Basic test2')
+    entity = Entity('Basic test7')
     entity.add_entity(triangle)
 
     # Set target.
-    target = Target(angle_c, 'angle')
+    target = Target(triangle, 'circumference')
 
     # Initialize conditions.
     conditions = []
-    conditions.append(AttributeValue(angle_a, angle=60))
-    conditions.append(AttributeValue(angle_b, angle=30))
+    conditions.append(AttributeValue(line_ab, length=3))
+    conditions.append(AttributeValue(line_ac, length=4))
+    conditions.append(AttributeValue(line_bc, length=5))
     
     return entity, target, conditions
 
 
-def basic_test2():
+def basic_test7():
     entity, target, conditions = get_problem()
     solver = Solver(entity=entity, target=target, conditions=conditions)
     solver.solve()
 
 
 if __name__ == '__main__':
-    basic_test2()
+    basic_test7()
 

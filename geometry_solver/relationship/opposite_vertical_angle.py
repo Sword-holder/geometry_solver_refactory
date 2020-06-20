@@ -14,13 +14,8 @@ class OppositeVerticalAngle(Relationship):
         self.vertex = vertex
     
     def __str__(self):
-        return '(' \
-            + 'VerticalAngle relationship ' \
-            + self.id \
-            + ': ' \
-            + 'angle1 = ' \
-            + str(self.angle1) \
-            + ', angle2 = ' \
-            + str(self.angle2) \
-            + ')'
+        return 'VerticalAngle ' \
+            + self.angle1.id \
+            + ' ' \
+            + self.angle2.id
 

@@ -6,6 +6,7 @@ from geometry_solver.indexer.ownership_indexer import OwnershipIndexer
 from geometry_solver.indexer.pattern_indexer import PatternIndexer
 from geometry_solver.indexer.type_indexer import TypeIndexer
 from geometry_solver.indexer.value_indexer import ValueIndexer
+from geometry_solver.indexer.topology_indexer import TopologyIndexer
 from geometry_solver.entity import Entity, Line
 from geometry_solver.pattern.pattern import Pattern
 from geometry_solver.condition import Condition, AttributeValue
@@ -33,6 +34,8 @@ class Indexer(BaseIndexer):
         self.value_indexer = ValueIndexer(entity, graph)
         self.name_indexer = NameIndexer(entity, graph)
         self.ownership_indexer = OwnershipIndexer(entity, graph)
+        self.topology_indexer = TopologyIndexer()
+        self.topology_indexer.build_from_problem(entity, graph)
 
     def update_index(self, new_obj: Union[Condition, Entity]):
         """Update index after new condition or new entity being added.
@@ -99,11 +102,13 @@ class Indexer(BaseIndexer):
         """Find angle whose vertex is `vertex` and two ends
             are `end1` and `end2`.
         
+        Return angle entity.
+
         Order of `end1` and `end2` is arbitary.
         Firstly, this method will extend two side as far as possible.
         Then, two ends will be sorted by lexicographical order.
         Finally, indexer find angle by its name, so the name of angle 
         is supposed to follow the convention.
         """
-        
+        return self.topology_indexer.index_angle_by_points(end1, vertex, end2)
         

@@ -8,3 +8,4 @@ class BasePolicy(object):
 
     def chose_theorem(self):
         pass
+

@@ -9,7 +9,7 @@ from geometry_solver.pattern import TrianglePattern, AttributeState
 class TriangleAngleSum(Theorem):
 
     def __init__(self):
-        super(TriangleAngleSum, self).__init__()
+        super().__init__()
     
     def index(self, indexer: Indexer):
         pattern = TrianglePattern(
