@@ -44,7 +44,7 @@ class TopologyIndexer(BaseIndexer):
                 std_name = self.angle_alis(e)
                 self._angle_alis[std_name] = e
     
-    def extend_line(self, base_point, direction_point):
+    def extend_line(self, base_point, direction_point, both_side=True):
         """Given two point/point's id, extend line and return line'id(str type).
         
         Return None if two point are not in the same line.
@@ -55,7 +55,7 @@ class TopologyIndexer(BaseIndexer):
             base_point = base_point.id
             direction_point = direction_point.id
         
-        return self._extend_line(base_point, direction_point)
+        return self._extend_line(base_point, direction_point, both_side)
             
     def index_angle_by_points(self, end1, vertex, end2):
         if type(end1) == str and type(vertex) == str and type(end2) == str:
@@ -65,7 +65,7 @@ class TopologyIndexer(BaseIndexer):
         std_name = self.angle_alis(end1 + vertex + end2)
         return self._angle_alis[std_name]
 
-    def _extend_line(self, base_point_str, direction_point_str):
+    def _extend_line(self, base_point_str, direction_point_str, both_side):
         """Given two point's, return extended line' id.
         
         Return None if two point are not in the same line.
@@ -81,8 +81,12 @@ class TopologyIndexer(BaseIndexer):
             # Found the collineation, begin to extend line.
             if index_base < index_direction:
                 index_direction = len(col) - 1
+                if both_side:
+                    index_base = 0
             else:
                 index_direction = 0
+                if both_side:
+                    index_base = len(col) - 1
             return col[index_base] + col[index_direction]
         return None
 
@@ -92,8 +96,8 @@ class TopologyIndexer(BaseIndexer):
         """
         if type(angle) == Angle:
             angle = angle.id
-        vertex, end1 = self._extend_line(angle[1], angle[0])
-        vertex, end2 = self._extend_line(angle[1], angle[2])
+        vertex, end1 = self._extend_line(angle[1], angle[0], both_side=False)
+        vertex, end2 = self._extend_line(angle[1], angle[2], both_side=False)
         if end1 > end2:
             end1, end2 = end2, end1
         return end1 + vertex + end2

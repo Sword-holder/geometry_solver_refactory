@@ -49,8 +49,8 @@ def get_problem():
     parallel = Parallel('AB_CD', line1=line_ab, line2=line_cd)
     r = RelationshipBased(parallel)
     conditions.append(r)
-    conditions.append(RelationshipBased(Collineation('AFC', points=[p_a, p_f, p_c])))
-    conditions.append(RelationshipBased(Collineation('BGD', points=[p_b, p_g, p_d])))
+    conditions.append(RelationshipBased(Collineation('AFB', points=[p_a, p_f, p_b])))
+    conditions.append(RelationshipBased(Collineation('CGD', points=[p_c, p_g, p_d])))
     conditions.append(RelationshipBased(Collineation('EFGH', points=[p_e, p_f, p_g, p_h])))
     
     # Set target.

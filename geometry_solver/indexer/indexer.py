@@ -116,11 +116,18 @@ class Indexer(BaseIndexer):
         """Find collineation relationship by line.
         
         Return a list of collinear points.
-        
-        
         """
         col_str = self.topology_indexer.index_collineation_by_line(line)
         points = []
         for p_str in col_str:
             points.append(self.index_by_name(p_str, Point))
         return points
+
+    def extend_line(self, line):
+        """Extend line towards two ends.
+        
+        Return extended line entity.
+        """
+        extended_id = self.topology_indexer.extend_line(line.end1, line.end2)
+        return self.index_by_name(extended_id, type_=Line)
+
