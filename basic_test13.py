@@ -38,14 +38,14 @@ def get_problem():
     angle_cge = Angle('CGE', side1=line_cg, side2=line_eg, vertex=p_g)
     angle_dge = Angle('DGE', side1=line_dg, side2=line_eg, vertex=p_g)
 
-    entity = Entity('Basic test12')
+    entity = Entity('Basic test13')
     for name, obj in locals().items():
         if name.startswith(tuple(['p_', 'line_', 'angle_'])):
             entity.add_entity(obj)
 
     # Initialize conditions.
     conditions = []
-    conditions.append(AttributeValue(angle_bfe, angle=60))
+    conditions.append(AttributeValue(angle_afh, angle=60))
     parallel = Parallel('AB_CD', line1=line_ab, line2=line_cd)
     r = RelationshipBased(parallel)
     conditions.append(r)
@@ -59,12 +59,12 @@ def get_problem():
     return entity, target, conditions
 
 
-def basic_test12():
+def basic_test13():
     entity, target, conditions = get_problem()
     solver = Solver(entity=entity, target=target, conditions=conditions)
     solver.solve()
 
 
 if __name__ == '__main__':
-    basic_test12()
+    basic_test13()
 

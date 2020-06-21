@@ -105,7 +105,7 @@ class TopologyIndexer(BaseIndexer):
 
     def index_collineation_by_line(self, line):
         """Return a list of point's name."""
-        if type(line) == Point:
+        if type(line) == Line:
             line = line.id
         return self._index_collineation_by_line(line)
         
@@ -114,7 +114,13 @@ class TopologyIndexer(BaseIndexer):
         end1 = line_str[0]
         end2 = line_str[1]
         for col in self.collineation:
-            if col.find(end1) != -1 and col.find(end) != -1:
+            try:
+                index1 = col.index(end1)
+                index2 = col.index(end2)
+                if index1 > index2:
+                    col = ''.join(reversed(col))
                 return col
+            except ValueError:
+                continue
         return None
         

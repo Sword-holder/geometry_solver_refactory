@@ -10,6 +10,9 @@ from geometry_solver.theorem.triangle_area import TriangleArea
 from geometry_solver.theorem.law_of_cosine_1 import LawOfCosine1
 from geometry_solver.theorem.law_of_cosine_2 import LawOfCosine2
 from geometry_solver.theorem.law_of_sine import LawOfSine
+from geometry_solver.theorem.corresponding_angle_equality import CorrespondingAngleEquality
+from geometry_solver.theorem.alternate_angel_equality import AlternateAngleEquality
+from geometry_solver.theorem.same_side_interior_angle_sum import SameSideInteriorAngleSum
 
 valid_theorem = [
     TriangleAngleSum,
@@ -22,5 +25,8 @@ valid_theorem = [
     TriangleArea,
     LawOfCosine1,
     LawOfCosine2,
-    LawOfSine
+    LawOfSine,
+    CorrespondingAngleEquality,
+    AlternateAngleEquality,
+    SameSideInteriorAngleSum
 ]

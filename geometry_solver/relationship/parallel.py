@@ -23,11 +23,8 @@ class Parallel(Relationship):
     
     def __str__(self):
         return '(' \
-            + 'Parallel relationship ' \
-            + self.id \
-            + ': ' \
-            + 'line1: ' \
-            + str(self.line1) \
-            + ', line2: ' \
-            + str(self.line2) \
+            + 'Parallel ' \
+            + self.line1.id \
+            + ' ' \
+            + self.line2.id \
             + ')'
