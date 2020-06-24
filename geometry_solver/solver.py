@@ -66,6 +66,7 @@ class Solver(object):
                 indexer.update_index(tg)
             step += 1
         
+        graph.prune()
         print('Problem solved succesfully!')
         print(graph.solving_path())
         graph.show_graph()

@@ -58,12 +58,30 @@ class DeductionGraph(object):
         return path_str
 
     def show_graph(self):
+        self._show_graph(self.conditions)
+        
+    def _show_graph(self, conditions):
         G = nx.DiGraph()
-        for cond in self.conditions:
+        for cond in conditions:
             G.add_node(cond)
-        for cond in self.conditions:
+        for cond in conditions:
             for src in cond.from_conditions:
                 G.add_edge(src, cond)
         nx.draw(G, with_labels=True, font_weight='bold')
         plt.show()
+        
+        
+    def prune(self):
+        if self.target_node is None:
+            raise ValueError("The problem is solved!")
+        self.conditions = self._prune(self.target_node)
+        
+    def _prune(self, condition):
+        """Prune the graph and return pruned condition list."""
+        if not condition.from_conditions:
+            return [condition]
+        useful_conditions = [condition]
+        for cond in condition.from_conditions:
+            useful_conditions += self._prune(cond)
+        return useful_conditions
 
