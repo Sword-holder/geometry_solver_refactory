@@ -9,6 +9,8 @@ from geometry_solver.relationship import Collineation
 
 class LineLengthSum(Theorem):
 
+    name = "line length sum"
+
     def __init__(self):
         super(LineLengthSum, self).__init__()
 

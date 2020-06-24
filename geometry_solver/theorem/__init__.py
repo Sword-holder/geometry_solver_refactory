@@ -13,6 +13,16 @@ from geometry_solver.theorem.law_of_sine import LawOfSine
 from geometry_solver.theorem.corresponding_angle_equality import CorrespondingAngleEquality
 from geometry_solver.theorem.alternate_angel_equality import AlternateAngleEquality
 from geometry_solver.theorem.same_side_interior_angle_sum import SameSideInteriorAngleSum
+from geometry_solver.theorem.right_triangle_judgment import RightTriangleJudgment
+from geometry_solver.theorem.pythagorean_theorem import PythagoreanTheorem
+from geometry_solver.theorem.isosceles_triangle_judgment_1 import IsoscelesTriangleJudgment1
+from geometry_solver.theorem.isosceles_triangle_hypotenuse_equality import IsoscelesTriangleHypotenuseEquality
+from geometry_solver.theorem.equilateral_triangle_judgment1 import EquilateralTriangleJudgment1
+from geometry_solver.theorem.equilateral_triangle_sides_equality import EquilateralTriangleHypotenuseEquality
+from geometry_solver.theorem.similar_triangle_angle_equality import SimilarTriangleAngleEquality
+from geometry_solver.theorem.similar_triangle_sides_proportional import SimilarTriangleSidesProportional
+from geometry_solver.theorem.similar_triangle_judgment1 import SimilarTriangleJudgment1
+from geometry_solver.theorem.similarity_ratio_determination import SimilarRatioDetermination
 
 valid_theorem = [
     TriangleAngleSum,
@@ -28,5 +38,16 @@ valid_theorem = [
     LawOfSine,
     CorrespondingAngleEquality,
     AlternateAngleEquality,
-    SameSideInteriorAngleSum
+    SameSideInteriorAngleSum,
+    RightTriangleJudgment,
+    PythagoreanTheorem,
+    IsoscelesTriangleJudgment1,
+    IsoscelesTriangleHypotenuseEquality,
+    EquilateralTriangleJudgment1,
+    EquilateralTriangleHypotenuseEquality,
+    SimilarTriangleAngleEquality,
+    SimilarTriangleAngleEquality,
+    SimilarTriangleSidesProportional,
+    SimilarTriangleJudgment1,
+    SimilarRatioDetermination
 ]

@@ -9,6 +9,8 @@ from geometry_solver.relationship import Perpendicular
 
 class PerpendicularAngle(Theorem):
 
+    name = "perpendicular angle"
+
     def __init__(self):
         super().__init__()
     

@@ -9,6 +9,8 @@ from geometry_solver.relationship import Parallel
 
 class SameSideInteriorAngleSum(Theorem):
 
+    name = "same-side interior angle sum"
+
     def __init__(self):
         super().__init__()
     

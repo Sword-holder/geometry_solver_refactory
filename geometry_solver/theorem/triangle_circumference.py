@@ -9,6 +9,8 @@ from geometry_solver.entity import Triangle
 
 class TriangleCircumference(Theorem):
 
+    name = "triangle's circumference"
+
     def __init__(self):
         super().__init__()
     

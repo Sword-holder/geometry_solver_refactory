@@ -9,6 +9,8 @@ from geometry_solver.relationship import SupplementaryAngle
 
 class SupplementaryAngleSum(Theorem):
 
+    name = "supplementary angle sum"
+
     def __init__(self):
         super().__init__()
     

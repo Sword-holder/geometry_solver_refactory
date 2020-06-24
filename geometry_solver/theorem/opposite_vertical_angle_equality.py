@@ -9,6 +9,8 @@ from geometry_solver.relationship import OppositeVerticalAngle
 
 class OppositeVertivalAngleEquality(Theorem):
 
+    name = "opposite vertical angle equality"
+
     def __init__(self):
         super().__init__()
     

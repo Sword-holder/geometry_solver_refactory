@@ -10,6 +10,8 @@ from geometry_solver.entity import Triangle
 
 class TriangleArea(Theorem):
 
+    name = "triangle area"
+
     def __init__(self):
         super().__init__()
     

@@ -53,14 +53,18 @@ class Solver(object):
         # Build indexer
         indexer = Indexer(self.entity, graph)
 
+        step = 0
         # Adopt policy until solve the problem.
         while not graph.solved:
             theorem = self.policy.chose_theorem()
+            print("step {}: chose {}".format(step, theorem.name))
             # Traverse all [sources, target] pair that meet requirement of theorem.
             for srcs, tg in theorem.index(indexer):
                 srcs, tg = theorem.deduct(srcs, tg)
                 graph.expand(tg)
                 tg.from_conditions = srcs
+                indexer.update_index(tg)
+            step += 1
         
         print('Problem solved succesfully!')
         print(graph.solving_path())

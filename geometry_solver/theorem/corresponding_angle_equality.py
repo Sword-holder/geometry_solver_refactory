@@ -9,6 +9,8 @@ from geometry_solver.relationship import Parallel
 
 class CorrespondingAngleEquality(Theorem):
 
+    name = 'corresponding angle equality'
+
     def __init__(self):
         super().__init__()
     

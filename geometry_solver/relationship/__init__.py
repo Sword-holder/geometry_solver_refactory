@@ -8,7 +8,9 @@ from geometry_solver.relationship.parallel import Parallel
 from geometry_solver.relationship.perpendicular import Perpendicular
 from geometry_solver.relationship.similar_triangle import SimilarTriangle
 from geometry_solver.relationship.supplementary_angle import SupplementaryAngle
-
+from geometry_solver.relationship.is_right_triangle import IsRightTriangle
+from geometry_solver.relationship.is_isosceles_triangle import IsIsoscelesTriangle
+from geometry_solver.relationship.is_equilateral_triangle import IsEquilateralTriangle
 
 __all__ = [
     'Relationship',
@@ -20,5 +22,8 @@ __all__ = [
     'Parallel',
     'Perpendicular',
     'SimilarTriangle',
-    'SupplementaryAngle'
+    'SupplementaryAngle',
+    'IsRightTriangle',
+    'IsIsoscelesTriangle',
+    'IsEquilateralTriangle'
 ]

@@ -8,6 +8,8 @@ from geometry_solver.pattern import TrianglePattern, AttributeState
 
 class TriangleAngleSum(Theorem):
 
+    name = "triangle's angle sum"
+
     def __init__(self):
         super().__init__()
     

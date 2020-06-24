@@ -5,7 +5,8 @@ from geometry_solver.entity import (Entity, Point, Line,
         Angle, Area, Triangle)
 from geometry_solver.relationship import (Relationship, Collineation, 
         CommonVertexAngle, NAngleSector, NLineSector, OppositeVerticalAngle,
-        Parallel, Perpendicular, SimilarTriangle, SupplementaryAngle)
+        Parallel, Perpendicular, SimilarTriangle, SupplementaryAngle, 
+        IsRightTriangle, IsIsoscelesTriangle, IsEquilateralTriangle)
 from geometry_solver.graph.deduction_graph import DeductionGraph
 from geometry_solver.condition import RelationshipBased
 from geometry_solver.condition.condition import Condition
@@ -32,7 +33,10 @@ class TypeIndexer(BaseIndexer):
             Parallel: [],
             Perpendicular: [],
             SimilarTriangle: [],
-            SupplementaryAngle: []
+            SupplementaryAngle: [],
+            IsRightTriangle: [],
+            IsIsoscelesTriangle: [],
+            IsEquilateralTriangle: []
         }
         self.build_index(entity, graph)
     
@@ -51,7 +55,7 @@ class TypeIndexer(BaseIndexer):
             self.table[type(e)].append(new_obj)
         elif type(new_obj) == RelationshipBased:
             r = new_obj.relationship
-            self.table[type(r)].append(r)
+            self.table[type(r)].append(new_obj)
 
     def index(self, type_):
         """Return a list of entity/relationship condition of this type."""

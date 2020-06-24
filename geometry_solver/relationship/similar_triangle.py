@@ -11,11 +11,19 @@ class SimilarTriangle(Relationship):
                  id_: str, 
                  triangle1: Triangle, 
                  triangle2: Triangle, 
-                 corresponding: List[Tuple[Angle, Angle]]):
-        super(SimilarTriangle, self).__init__(id_)
+                 cor_angle: List[Tuple[Angle, Angle]]):
+        super().__init__(id_)
         self.triangle1 = triangle1
         self.triangle2 = triangle2
-        self.corresponding = corresponding
+        # Similar triangles' corresponding angles.
+        self.cor_angle = cor_angle
+        
+        # Similar triangles' corresponding sides.
+        self.cor_sides = []
+        for angle1, angle2 in cor_angle:
+            side1 = (triangle1.opposite_side(angle1))
+            side2 = (triangle2.opposite_side(angle2))
+            self.cor_sides.append((side1, side2))
     
     def __eq__(self, other):
         if not isinstance(other, SimilarTriangle):
@@ -39,14 +47,8 @@ class SimilarTriangle(Relationship):
         return hash('_'.join(['SimilarTriangle', tid1, tid2]))
     
     def __str__(self):
-        return '(' \
-            + 'SimilarTriangle relationship ' \
-            + self.id \
-            + ': ' \
-            + 'triangle1: ' \
+        return 'SimilarTriangle(' \
             + str(self.triangle1.id) \
-            + ', triangle2: ' \
+            + ', ' \
             + str(self.triangle2.id) \
-            + ', ratio: ' \
-            + str(self.ratio) \
             + ')'

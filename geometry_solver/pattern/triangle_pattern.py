@@ -65,19 +65,29 @@ class TrianglePattern(Pattern):
                 and match(self.area, other.area)
 
     def __str__(self):
-        translate = {
-            AttributeState.KNOWN: 'KNOWN',
-            AttributeState.UNKNOWN: 'UNKNOWN',
-            AttributeState.NOT_MATTER: 'NOT MATTER'
-        }
+        
+        def translate(value):
+            if value == AttributeState.KNOWN:
+                return 'KNOWN'
+            elif value == AttributeState.UNKNOWN:
+                return 'UNKNOWN'
+            elif value == AttributeState.NOT_MATTER:
+                return 'NOT MATTER'
+            elif value == None:
+                return 'None'
+            else:
+                return str(value)
+
         return '(TrianglePattern:' \
-              + ' angle_A: ' + translate[self.angle_A] \
-              + ' angle_B: ' + translate[self.angle_B] \
-              + ' angle_C: ' + translate[self.angle_C] \
-              + ' line_BC: ' + translate[self.line_BC] \
-              + ' line_AC: ' + translate[self.line_AC] \
-              + ' line_AB: ' + translate[self.line_AB] \
-              + ' circumference: ' + translate[self.circumference] \
-              + ' area: ' + translate[self.area] \
+              + ' angle_A: ' + translate(self.angle_A) \
+              + ' angle_B: ' + translate(self.angle_B) \
+              + ' angle_C: ' + translate(self.angle_C) \
+              + ' line_BC: ' + translate(self.line_BC) \
+              + ' line_AC: ' + translate(self.line_AC) \
+              + ' line_AB: ' + translate(self.line_AB) \
+              + ' circumference: ' + translate(self.circumference) \
+              + ' area: ' + translate(self.area) \
               + ')'
+        
+    __repr__ = __str__
 

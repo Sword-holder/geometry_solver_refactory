@@ -9,6 +9,8 @@ from geometry_solver.relationship import CommonVertexAngle
 
 class CommonVertexAngleSum(Theorem):
 
+    name = 'common-vertex angle sum'
+
     def __init__(self):
         super().__init__()
         

@@ -51,6 +51,18 @@ class Triangle(Area):
         return self.sides[2]
     
     @property
+    def vertex1(self):
+        return self.vertexes[0]
+    
+    @property
+    def vertex2(self):
+        return self.vertexes[1]
+    
+    @property
+    def vertex3(self):
+        return self.vertexes[2]
+    
+    @property
     def known_angles(self) -> List[Angle]:
         return [angle for angle in self.angles if angle.angle is not None]
 
@@ -102,25 +114,6 @@ class Triangle(Area):
         self.to_equilateral()
 
     def __str__(self) -> str:
-        return '(' \
-            + 'Triangle ' \
-            + self.id \
-            + ': ' \
-            + '\n\tvertexes: ' \
-            + ' '.join(list(map(str, self.vertexes))) \
-            + '\n\tside1: ' \
-            + str(self.sides[0]) \
-            + '\n\tside2: ' \
-            + str(self.sides[1]) \
-            + '\n\tside3: ' \
-            + str(self.sides[2]) \
-            + '\n\tangle1: ' \
-            + '\n\t'.join(str(self.angles[0]).split('\n')) \
-            + '\n\tangle2: ' \
-            + '\n\t'.join(str(self.angles[1]).split('\n')) \
-            + '\n\tangle3: ' \
-            + '\n\t'.join(str(self.angles[2]).split('\n')) \
-            + '\n\tarea = ' \
-            + str(self.area) \
-            + ')'
+        return 'Triangle ' + self.id
 
+    __repr__ = __str__

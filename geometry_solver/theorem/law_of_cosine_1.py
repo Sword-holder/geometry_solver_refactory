@@ -8,6 +8,8 @@ from geometry_solver.pattern import TrianglePattern, AttributeState
 
 
 class LawOfCosine1(Theorem):
+    
+    name = "law of cosine 1"
 
     def __init__(self):
         super().__init__()

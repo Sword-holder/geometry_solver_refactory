@@ -29,18 +29,21 @@ class Indexer(BaseIndexer):
         :param graph: deduction graph.
         """
         self.graph = graph
+        # Dynamic indexer.
         self.pattern_indexer = PatternIndexer(entity, graph)
         self.type_indexer = TypeIndexer(entity, graph)
         self.value_indexer = ValueIndexer(entity, graph)
+        # Static indexer.
         self.name_indexer = NameIndexer(entity, graph)
         self.ownership_indexer = OwnershipIndexer(entity, graph)
         self.topology_indexer = TopologyIndexer()
         self.topology_indexer.build_from_problem(entity, graph)
 
     def update_index(self, new_obj: Union[Condition, Entity]):
-        """Update index after new condition or new entity being added.
-        """
+        """Update index after new condition or new entity being added."""
         self.type_indexer.update_index(new_obj)
+        self.value_indexer.update_index(new_obj)
+        self.pattern_indexer.update_index(new_obj, self)
     
     def index_by_name(self, name, type_=None):
         """Find entities by name.
@@ -60,13 +63,16 @@ class Indexer(BaseIndexer):
     def index_by_ownership(self, obj, owner_type):
         """Find entities by ownership.
         
-        It will find all object whose name is 
+        Return a list of owner entities.
         """
         return self.ownership_indexer.index(obj, owner_type)
         
-    def index_by_pattern(self, pattern: Pattern) -> List[Condition]:
+    def index_by_pattern(self, pattern: Pattern, return_entity=False):
         """Find conditions by pattern."""
-        return self.pattern_indexer.index(pattern)
+        conditions, entities = self.pattern_indexer.index(pattern)
+        if return_entity:
+            return conditions, entities
+        return conditions
         
     def index_by_type(self, type_):
         """Find conditions or entities by type."""

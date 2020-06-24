@@ -6,6 +6,8 @@ from geometry_solver.indexer.indexer import Indexer
 
 class Theorem(object):
     
+    name = 'base theorem'
+    
     def __init__(self):
         pass
     

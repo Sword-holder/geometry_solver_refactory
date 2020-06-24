@@ -9,6 +9,8 @@ from geometry_solver.pattern import TrianglePattern, AttributeState
 
 class LawOfSine(Theorem):
 
+    name = "law of sine"
+
     def __init__(self):
         super().__init__()
     

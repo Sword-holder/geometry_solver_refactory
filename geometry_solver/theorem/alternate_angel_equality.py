@@ -9,6 +9,8 @@ from geometry_solver.relationship import Parallel
 
 class AlternateAngleEquality(Theorem):
 
+    name = 'alternate angle equality'
+
     def __init__(self):
         super().__init__()
     
