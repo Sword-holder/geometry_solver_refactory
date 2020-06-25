@@ -1,4 +1,9 @@
 from typing import List
+import time
+
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 from geometry_solver.entity.entity import Entity
 from geometry_solver.condition.condition import Condition
@@ -33,8 +38,8 @@ class Solver(object):
     def solve(self, 
             show_answer=True,
             show_process=True,
-            show_graph=False,
-            prune_graph=False) -> None:
+            show_graph=True,
+            prune=True) -> None:
         """Solve the problem.
 
         :param show_answer: 
@@ -53,23 +58,47 @@ class Solver(object):
         # Build indexer
         indexer = Indexer(self.entity, graph)
 
-        step = 0
+        begin = time.time()
+        trial_times = 0
         # Adopt policy until solve the problem.
         while not graph.solved:
             theorem = self.policy.chose_theorem()
-            print("step {}: chose {}".format(step, theorem.name))
+            if show_process:
+                print("trial {}: chose {}".format(trial_times, theorem.name))
             # Traverse all [sources, target] pair that meet requirement of theorem.
             for srcs, tg in theorem.index(indexer):
                 srcs, tg = theorem.deduct(srcs, tg)
                 graph.expand(tg)
                 tg.from_conditions = srcs
+                tg.from_theorem = theorem
                 indexer.update_index(tg)
-            step += 1
+            trial_times += 1
+        end = time.time()
+        time_usage = end - begin
+
+        solving_steps_before_prune = graph.solving_steps()
+        solving_steps_after_prune = None
+
+        if prune:
+            graph.prune()
+            solving_steps_after_prune = graph.solving_steps()
         
-        graph.prune()
-        print('Problem solved succesfully!')
-        print(graph.solving_path())
-        graph.show_graph()
+        if show_process:
+            print('Problem solved succesfully!')
         
-        return graph
+        plain_word_answer = graph.plain_word_answer()
+        if show_answer:
+            print(plain_word_answer)
+
+        if show_graph:
+            graph.show_graph()
+        
+        result = {
+            "plain_word_answer": plain_word_answer,
+            "solving_steps_before_prune": solving_steps_before_prune,
+            "solving_steps_after_prune": solving_steps_after_prune,
+            "trial_times": trial_times,
+            "time_usage": time_usage
+        }
+        return result
 

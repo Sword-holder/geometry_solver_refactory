@@ -50,12 +50,18 @@ class DeductionGraph(object):
             return """The problem is solved!"""
         return self._solving_path(self.target_node)
 
-    def _solving_path(self, target_node):
-        path_str = ''
-        for cond in target_node.from_conditions:
-            path_str += self._solving_path(cond) + '\n'
-        path_str += str(target_node)
-        return path_str
+    def _solving_path(self, node):
+        if not node.from_conditions:
+            return []
+        path = []
+        for cond in node.from_conditions:
+            path += self._solving_path(cond)
+        preconditions = node.from_conditions
+        theorem = node.from_theorem
+        result = node
+        triplet = (preconditions, theorem, result)
+        path = [triplet] + path
+        return path
 
     def show_graph(self):
         self._show_graph(self.conditions)
@@ -69,7 +75,6 @@ class DeductionGraph(object):
                 G.add_edge(src, cond)
         nx.draw(G, with_labels=True, font_weight='bold')
         plt.show()
-        
         
     def prune(self):
         if self.target_node is None:
@@ -85,3 +90,25 @@ class DeductionGraph(object):
             useful_conditions += self._prune(cond)
         return useful_conditions
 
+    def plain_word_answer(self):
+        """Convert deduction process to nature language."""
+        if self.target_node is None:
+            return 'Problem not solved.'
+        answer = []
+        path = self.solving_path()
+        for step in path:
+            # step is triplet ([preconditions], theorem, result)
+            preconditions, theorem, result = step
+            pre_str = ', '.join([str(pre) for pre in preconditions])
+            th_str = theorem.name
+            res_str = str(result)
+            line = '由于 {}，根据定理 {}，推得 {}'.format(pre_str, th_str, res_str)
+            answer.append(line)
+        return '\n'.join(answer)
+
+    def solving_steps(self):
+        step = 0
+        for cond in self.conditions:
+            if cond.from_conditions:
+                step += 1
+        return step
