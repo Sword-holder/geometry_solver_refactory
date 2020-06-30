@@ -22,9 +22,5 @@ class Parallel(Relationship):
         self.reverse = reverse
     
     def __str__(self):
-        return '(' \
-            + 'Parallel ' \
-            + self.line1.id \
-            + ' ' \
-            + self.line2.id \
-            + ')'
+        return 'Parallel({}, {})'.format(
+                self.line1.id, self.line2.id)

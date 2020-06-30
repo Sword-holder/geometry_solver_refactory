@@ -23,6 +23,8 @@ from geometry_solver.theorem.similar_triangle_angle_equality import SimilarTrian
 from geometry_solver.theorem.similar_triangle_sides_proportional import SimilarTriangleSidesProportional
 from geometry_solver.theorem.similar_triangle_judgment1 import SimilarTriangleJudgment1
 from geometry_solver.theorem.similarity_ratio_determination import SimilarRatioDetermination
+from geometry_solver.theorem.n_angle_sector_proportional import NAngleSectorProportional
+from geometry_solver.theorem.n_line_sector_proportional import NLineSectorProportional
 
 valid_theorem = [
     TriangleAngleSum,
@@ -49,5 +51,7 @@ valid_theorem = [
     SimilarTriangleAngleEquality,
     SimilarTriangleSidesProportional,
     SimilarTriangleJudgment1,
-    SimilarRatioDetermination
+    SimilarRatioDetermination,
+    NAngleSectorProportional,
+    NLineSectorProportional
 ]

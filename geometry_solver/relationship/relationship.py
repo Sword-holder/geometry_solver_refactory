@@ -13,8 +13,5 @@ class Relationship(object):
                and self.id == other.id
 
     def __str__(self):
-        return '(' \
-            + 'Relationship ' \
-            + self.id \
-            + ')'
+        return 'Relationship ' + self.id
 

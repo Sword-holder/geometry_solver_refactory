@@ -98,7 +98,8 @@ class Solver(object):
             "solving_steps_before_prune": solving_steps_before_prune,
             "solving_steps_after_prune": solving_steps_after_prune,
             "trial_times": trial_times,
-            "time_usage": time_usage
+            "time_usage": time_usage,
+            "answer": graph.answer
         }
         return result
 

@@ -13,14 +13,6 @@ class CommonVertexAngle(Relationship):
         self.ends = ends
     
     def __str__(self):
-        return '(' \
-            + 'CommonVertexAngle ' \
-            + self.id \
-            + ': ' \
-            + 'vertex = [' \
-            + str(self.vertex) \
-            + ', ends: ' \
-            + ','.join([p.id for p in self.ends]) \
-            + ']' \
-            + ')'
+        return 'CommonVertexAngle({}, {})'.format(
+                self.vertex.id, ''.join([p.id for p in self.ends]))
 

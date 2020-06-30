@@ -123,4 +123,16 @@ class TopologyIndexer(BaseIndexer):
             except ValueError:
                 continue
         return None
+    
+    def index_line_intersection(self, line1, line2):
+        if type(line1) == Line and type(line2) == Line:
+            line1 = line1.id
+            line2 = line2.id
+        return self._index_line_intersection(line1, line2)
+        
+    def _index_line_intersection(self, line1_str, line2_str):
+        col1 = self._index_collineation_by_line(line1_str)
+        col2 = self._index_collineation_by_line(line2_str)
+        intersection = list(set(col1) & set(col2))[0]
+        return intersection
         

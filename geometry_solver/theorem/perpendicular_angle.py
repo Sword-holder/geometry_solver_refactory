@@ -21,6 +21,8 @@ class PerpendicularAngle(Theorem):
             r = cond.relationship
             line1 = r.line1
             line2 = r.line2
+            if r.foot_point is None:
+                r.foot_point = indexer.index_line_intersection(line1, line2)
             foot_point = r.foot_point
             for p1 in [line1.end1, line1.end2]:
                 for p2 in [line2.end1, line2.end2]:

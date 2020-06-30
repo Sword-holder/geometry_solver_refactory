@@ -37,6 +37,8 @@ class AttributeValue(Condition):
 
     def __str__(self):
         return self.obj.id + '.' + self.attr_name  + ' = ' + str(self._attr_value)
+    
+    __repr__ = __str__
 
     def __keys(self):
         return (self.obj, self.attr_name, self._attr_value)

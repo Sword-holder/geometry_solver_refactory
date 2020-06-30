@@ -137,5 +137,13 @@ class Indexer(BaseIndexer):
         Return extended line entity.
         """
         extended_id = self.topology_indexer.extend_line(line.end1, line.end2)
-        return self.index_by_name(extended_id, type_=Line)
+        return self.index_by_name(extended_id, type_=Line)[0]
+    
+    def index_line_intersection(self, line1, line2):
+        """Find two lines' intersection.
+        
+        Return point entity.
+        """
+        point_id = self.topology_indexer.index_line_intersection(line1, line2)
+        return self.index_by_name(point_id, type_=Point)[0]
 

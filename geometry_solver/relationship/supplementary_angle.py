@@ -12,8 +12,6 @@ class SupplementaryAngle(Relationship):
         self.angle2 = angle2
     
     def __str__(self):
-         return 'Supplementary ' \
-            + self.angle1.id \
-            + ' and ' \
-            + self.angle2.id \
+        return 'Supplementary({}, {})'.format(
+                self.angle1.id, self.angle2.id)
 

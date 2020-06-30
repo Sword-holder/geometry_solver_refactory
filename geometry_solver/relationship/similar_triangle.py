@@ -47,8 +47,6 @@ class SimilarTriangle(Relationship):
         return hash('_'.join(['SimilarTriangle', tid1, tid2]))
     
     def __str__(self):
-        return 'SimilarTriangle(' \
-            + str(self.triangle1.id) \
-            + ', ' \
-            + str(self.triangle2.id) \
-            + ')'
+        return 'SimilarTriangle({}, {})'.format(
+                self.triangle1.id, self.triangle2.id)
+

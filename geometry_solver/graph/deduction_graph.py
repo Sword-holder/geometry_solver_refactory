@@ -112,3 +112,9 @@ class DeductionGraph(object):
             if cond.from_conditions:
                 step += 1
         return step
+    
+    @property
+    def answer(self):
+        if not self.target_node:
+            return None
+        return self.target_node.attr_value

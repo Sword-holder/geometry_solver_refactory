@@ -14,8 +14,6 @@ class OppositeVerticalAngle(Relationship):
         self.vertex = vertex
     
     def __str__(self):
-        return 'VerticalAngle ' \
-            + self.angle1.id \
-            + ' ' \
-            + self.angle2.id
+        return 'VerticalAngle({}, {})'.format(
+                self.angle1.id ,self.angle2.id)
 

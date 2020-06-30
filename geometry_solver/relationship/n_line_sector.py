@@ -7,23 +7,27 @@ from geometry_solver.relationship import Relationship
 
 class NLineSector(Relationship):
 
-    def __init__(self, id_: str, line: Line, point: Point, ratio: float, nearer_point: Point=None):
+    def __init__(self, id_: str, line: Line, split_point: Point, nearer_point: Point=None):
         super(NLineSector, self).__init__(id_)
         self.line = line
-        self.point = point
-        self.ratio = ratio
+        self.split_point = split_point
         self.nearer_point = nearer_point
+        if nearer_point:
+            self.nearer_point = line.end1
+    
+    @property
+    def far_point(self):
+        if self.nearer_point == self.line.end1:
+            point = self.line.end2
+        else:
+            point = self.line.end1
+        return point
+    
+    @property
+    def three_points(self):
+        return self.nearer_point, self.split_point, self.far_point
     
     def __str__(self):
-        return '(' \
-            + 'NLineSector relationship ' \
-            + self.id \
-            + ': ' \
-            + 'line: ' \
-            + str(self.line) \
-            + ', point: ' \
-            + str(self.point) \
-            + ', near_point = ' \
-            + str(self.nearer_point) \
-            + ')'
+        return 'NLineSector({}, {})'.format(
+                self.split_point.id, self.point.id)
 

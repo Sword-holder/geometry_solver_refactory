@@ -10,9 +10,6 @@ class Collineation(Relationship):
         self.points = points
 
     def __str__(self):
-        return '(' \
-            + 'Collineation' \
-            + ' ' \
-            + ''.join([p.id for p in self.points]) \
-            + ')'
+        return 'Collineation({})'.format(
+                ', '.join([p.id for p in self.points]))
 
