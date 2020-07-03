@@ -2,7 +2,6 @@ from geometry_solver.condition.condition import Condition
 from geometry_solver.entity import Entity
 from geometry_solver.relationship import Relationship
 from geometry_solver.target.target import Target
-from geometry_solver.config import NUMBER_OO_DECIMAL_PLACES
 
 
 class AttributeValue(Condition):
@@ -31,8 +30,6 @@ class AttributeValue(Condition):
     
     @attr_value.setter
     def attr_value(self, value):
-        if value is not None:
-            value = round(value, NUMBER_OO_DECIMAL_PLACES)
         self._attr_value = value
 
     def __str__(self):
