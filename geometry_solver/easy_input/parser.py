@@ -157,7 +157,6 @@ class Parser(object):
             ps = [self.points[pid] for pid in col]
             r = Collineation(col_id, points=ps)
             collineations[col_id] = r
-            conditions.append()
 
 
         # Generate opposite vertival angles.
@@ -205,11 +204,9 @@ class Parser(object):
         common_vertex_angles = {}
         for v, arounds in self._common_vertex:
             vertex = self.points[v]
-            lines_ = []
-            for pid in arounds:
-                lines_.append(self.find_line_by_ends(v, pid))
+            ends = [self.points[pid] for pid in arounds]
             rid = ' '.join(['CommonVertexAngle', v, ''.join(arounds)])
-            r = CommonVertexAngle(rid, vertex=vertex, ends=lines_)
+            r = CommonVertexAngle(rid, vertex=vertex, ends=ends)
             common_vertex_angles[rid] = r
 
         
@@ -220,7 +217,7 @@ class Parser(object):
             angle_ = self.find_angle_by_points(*aid)
             line_ = self.find_line_by_ends(*lid)
             rid = ' '.join([angle_.id, line_.id, str(ratio), near_line.id])
-            r = NAngleSector(rid, angle=angle_, split_line=line_, nearer_line=near_line)
+            r = NAngleSector(rid, angle=angle_, split_line=line_, near_line=near_line)
             cond = AttributeValue(r, ratio=ratio)
             conditions.append(cond)
             n_angles_sector[rid] = r
@@ -232,8 +229,8 @@ class Parser(object):
             rid = ' '.join(['NLineSector', lid, pid, str(ratio)])
             r = NLineSector(rid, 
                             line=self.find_line_by_ends(*lid), 
-                            point=self.points[pid], 
-                            nearer_point=self.points[lid[0]])
+                            split_point=self.points[pid], 
+                            near_point=self.points[lid[0]])
             cond = AttributeValue(r, ratio=ratio)
             conditions.append(cond)
             n_line_sector[rid] = r

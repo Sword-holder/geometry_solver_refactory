@@ -14,6 +14,7 @@ from geometry_solver.theorem.corresponding_angle_equality import CorrespondingAn
 from geometry_solver.theorem.alternate_angel_equality import AlternateAngleEquality
 from geometry_solver.theorem.same_side_interior_angle_sum import SameSideInteriorAngleSum
 from geometry_solver.theorem.right_triangle_judgment import RightTriangleJudgment
+from geometry_solver.theorem.right_triangle_area import RightTriangleArea
 from geometry_solver.theorem.pythagorean_theorem import PythagoreanTheorem
 from geometry_solver.theorem.isosceles_triangle_judgment_1 import IsoscelesTriangleJudgment1
 from geometry_solver.theorem.isosceles_triangle_hypotenuse_equality import IsoscelesTriangleHypotenuseEquality
@@ -42,6 +43,7 @@ valid_theorem = [
     AlternateAngleEquality,
     SameSideInteriorAngleSum,
     RightTriangleJudgment,
+    RightTriangleArea,
     PythagoreanTheorem,
     IsoscelesTriangleJudgment1,
     IsoscelesTriangleHypotenuseEquality,

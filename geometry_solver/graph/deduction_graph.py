@@ -60,7 +60,7 @@ class DeductionGraph(object):
         theorem = node.from_theorem
         result = node
         triplet = (preconditions, theorem, result)
-        path = [triplet] + path
+        path += [triplet]
         return path
 
     def show_graph(self):
