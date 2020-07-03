@@ -2,6 +2,7 @@ from geometry_solver.condition.condition import Condition
 from geometry_solver.entity import Entity
 from geometry_solver.relationship import Relationship
 from geometry_solver.target.target import Target
+from geometry_solver.config import ROUND_PRECISION
 
 
 class AttributeValue(Condition):
@@ -33,7 +34,8 @@ class AttributeValue(Condition):
         self._attr_value = value
 
     def __str__(self):
-        return self.obj.id + '.' + self.attr_name  + ' = ' + str(self._attr_value)
+        value = round(self._attr_value, ROUND_PRECISION)
+        return '{}.{}={}'.format(self.obj.id, self.attr_name, value)
     
     __repr__ = __str__
 

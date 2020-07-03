@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 from geometry_solver.target.target import Target
 from geometry_solver.condition import Condition, AttributeValue
+from geometry_solver.config import ROUND_PRECISION
 
 
 class DeductionGraph(object):
@@ -117,4 +118,5 @@ class DeductionGraph(object):
     def answer(self):
         if not self.target_node:
             return None
-        return self.target_node.attr_value
+        value = round(self.target_node.attr_value, ROUND_PRECISION)
+        return value
