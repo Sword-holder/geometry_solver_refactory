@@ -5,35 +5,21 @@ import warnings
 import matplotlib.cbook
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
-from geometry_solver.entity.entity import Entity
-from geometry_solver.condition.condition import Condition
 from geometry_solver.graph.deduction_graph import DeductionGraph
-from geometry_solver.target.target import Target
 from geometry_solver.indexer.indexer import Indexer
 from geometry_solver.policy import BasePolicy, RandomPolicy
+from geometry_solver.problem import Problem
 
 
 class Solver(object):
 
     def __init__(self, 
-            entity: Entity=None,
-            target: Target=None,
-            conditions: List[Condition]=None,
+            problem: Problem,
             policy: BasePolicy=None):
-        if len(entity.children) == 0:
-            raise ValueError("Problem entity is empty!")
-        self.entity = entity
-        self.target = target
-        self.conditions = conditions
+        self.problem = problem
         if policy is None:
             policy = RandomPolicy()
         self.policy = policy
-
-    def set_entity(self, entity: Entity) -> None:
-        self.entity = entity
-
-    def set_conditions(self, conditions: List[Condition]) -> None:
-        self.conditions = conditions
 
     def solve(self, 
             show_answer=True,
@@ -53,10 +39,10 @@ class Solver(object):
         """
         
         # Initialize deduction graph.
-        graph = DeductionGraph(self.conditions, self.target)
+        graph = DeductionGraph(self.problem.conditions, self.problem.target)
         
         # Build indexer
-        indexer = Indexer(self.entity, graph)
+        indexer = Indexer(self.problem.entity, graph)
 
         begin = time.time()
         trial_times = 0
