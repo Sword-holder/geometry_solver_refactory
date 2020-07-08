@@ -6,9 +6,9 @@ from geometry_solver.indexer.indexer import Indexer
 from geometry_solver.pattern import TrianglePattern, AttributeState
 
 
-class TriangleAngleSum(Theorem):
+class TriangleAngleSum1(Theorem):
 
-    name = "triangle's angle sum"
+    name = "triangle's angle sum 1"
 
     def __init__(self):
         super().__init__()

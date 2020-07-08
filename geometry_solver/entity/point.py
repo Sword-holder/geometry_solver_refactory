@@ -7,8 +7,7 @@ class Point(Entity):
         super(Point, self).__init__(id_)
     
     def __str__(self):
-        return '(' \
-            + 'Point ' \
-            + self.id \
-            + ')'
+        return 'Point {}'.format(self.id)
+    
+    __repr__ = __str__
 

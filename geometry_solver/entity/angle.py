@@ -19,13 +19,5 @@ class Angle(Entity):
         self.add_entity(side1, side2, vertex)
 
     def __str__(self):
-        return '(' \
-            + 'Angle ' \
-            + self.id \
-            + ': \n' \
-            + '\tside1: ' \
-            + str(self.side1) \
-            + '\n\tside2: ' \
-            + str(self.side2) \
-            + ')'
+        return 'Angle {}'.format(self.id)
 

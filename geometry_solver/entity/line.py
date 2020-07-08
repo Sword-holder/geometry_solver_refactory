@@ -13,13 +13,5 @@ class Line(Entity):
         self.add_entity(end1, end2)
 
     def __str__(self):
-        return '(' \
-            + 'Line ' \
-            + self.id \
-            + ': ' \
-            + 'from ' \
-            + str(self.end1) \
-            + ', to ' \
-            + str(self.end2) \
-            + ')'
+        return 'Line {}'.format(self.id)
 

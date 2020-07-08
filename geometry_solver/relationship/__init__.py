@@ -11,6 +11,8 @@ from geometry_solver.relationship.supplementary_angle import SupplementaryAngle
 from geometry_solver.relationship.is_right_triangle import IsRightTriangle
 from geometry_solver.relationship.is_isosceles_triangle import IsIsoscelesTriangle
 from geometry_solver.relationship.is_equilateral_triangle import IsEquilateralTriangle
+from geometry_solver.relationship.value_proportion import ValueProportion
+from geometry_solver.relationship.value_equivalence import ValueEquivalence
 
 __all__ = [
     'Relationship',
@@ -25,5 +27,7 @@ __all__ = [
     'SupplementaryAngle',
     'IsRightTriangle',
     'IsIsoscelesTriangle',
-    'IsEquilateralTriangle'
+    'IsEquilateralTriangle',
+    'ValueProportion',
+    'ValueEquivalence'
 ]

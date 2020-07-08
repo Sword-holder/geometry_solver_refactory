@@ -114,6 +114,6 @@ class Triangle(Area):
         self.to_equilateral()
 
     def __str__(self) -> str:
-        return 'Triangle ' + self.id
+        return 'Triangle {}'.format(self.id)
 
     __repr__ = __str__

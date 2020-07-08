@@ -68,10 +68,14 @@ class Solver(object):
             # Traverse all [sources, target] pair that meet requirement of theorem.
             for srcs, tg in theorem.index(indexer):
                 srcs, tg = theorem.deduct(srcs, tg)
-                graph.expand(tg)
-                tg.from_conditions = srcs
-                tg.from_theorem = theorem
-                indexer.update_index(tg)
+                # There can be multiple targets.
+                if not isinstance(tg, list):
+                    tg = [tg]
+                for tg_ in tg:
+                    graph.expand(tg_)
+                    tg_.from_conditions = srcs
+                    tg_.from_theorem = theorem
+                    indexer.update_index(tg_)
             trial_times += 1
         end = time.time()
         time_usage = end - begin

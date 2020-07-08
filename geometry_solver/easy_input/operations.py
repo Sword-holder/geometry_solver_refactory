@@ -46,6 +46,12 @@ def common_vertex_angles(vertex_id, around_points):
     parser.add_common_vertex_angle(vertex_id, around_points)
     
 
+def line_equivalence(obj_id1, obj_id2):
+    parser.add_line_equivalent(obj_id1, obj_id2)
+
+def angle_equivalence(obj_id1, obj_id2):
+    parser.add_angle_equivalent(obj_id1, obj_id2)
+
 # Target setter.
 def get_length(line_id):
     """Get length of a line."""

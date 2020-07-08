@@ -38,7 +38,7 @@ class NLineSectorProportional(Theorem):
                 if near_cond.attr_value is not None:
                     ret.append([[near_cond, ratio_cond, 1/ratio], full_cond])
                 elif far_cond.attr_value is not None:
-                    ret.append([[near_cond, ratio_cond, 1/(1-ratio)], full_cond])
+                    ret.append([[far_cond, ratio_cond, 1/(1-ratio)], full_cond])
             if near_cond.attr_value is None:
                 if full_cond.attr_value is not None:
                     ret.append([[full_cond, ratio_cond, ratio], near_cond])

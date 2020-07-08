@@ -36,11 +36,11 @@ class NAngleSector(Relationship):
         p_split = another_end(split_line, vertex)
         p_far = another_end(far_line, vertex)
         return [p_near, p_split, p_far]
-        
+
     @property
     def vertex(self):
         return self.angle.vertex
-        
+
     def __str__(self):
         return 'NAngleSector({}, {})'.format(
                 self.angle.id, self.split_line.id)

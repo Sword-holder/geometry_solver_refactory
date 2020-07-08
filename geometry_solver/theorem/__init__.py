@@ -1,7 +1,9 @@
 from geometry_solver.theorem.theorem import Theorem
-from geometry_solver.theorem.triangle_angle_sum import TriangleAngleSum
+from geometry_solver.theorem.triangle_angle_sum1 import TriangleAngleSum1
+from geometry_solver.theorem.triangle_angle_sum2 import TriangleAngleSum2
 from geometry_solver.theorem.line_length_sum import LineLengthSum
-from geometry_solver.theorem.common_vertex_angle_sum import CommonVertexAngleSum
+from geometry_solver.theorem.common_vertex_angle_sum1 import CommonVertexAngleSum1
+from geometry_solver.theorem.common_vertex_angle_sum2 import CommonVertexAngleSum2
 from geometry_solver.theorem.supplementary_angle_sum import SupplementaryAngleSum
 from geometry_solver.theorem.perpendicular_angle import PerpendicularAngle
 from geometry_solver.theorem.opposite_vertical_angle_equality import OppositeVertivalAngleEquality
@@ -17,7 +19,11 @@ from geometry_solver.theorem.right_triangle_judgment import RightTriangleJudgmen
 from geometry_solver.theorem.right_triangle_area import RightTriangleArea
 from geometry_solver.theorem.pythagorean_theorem import PythagoreanTheorem
 from geometry_solver.theorem.isosceles_triangle_judgment_1 import IsoscelesTriangleJudgment1
+from geometry_solver.theorem.isosceles_triangle_judgment_2 import IsoscelesTriangleJudgment2
+from geometry_solver.theorem.isosceles_triangle_judgment_3 import IsoscelesTriangleJudgment3
+from geometry_solver.theorem.isosceles_triangle_judgment_4 import IsoscelesTriangleJudgment4
 from geometry_solver.theorem.isosceles_triangle_hypotenuse_equality import IsoscelesTriangleHypotenuseEquality
+from geometry_solver.theorem.isosceles_triangle_base_angle_equality import IsoscelesTriangleBaseAngleEquality
 from geometry_solver.theorem.equilateral_triangle_judgment1 import EquilateralTriangleJudgment1
 from geometry_solver.theorem.equilateral_triangle_sides_equality import EquilateralTriangleHypotenuseEquality
 from geometry_solver.theorem.similar_triangle_angle_equality import SimilarTriangleAngleEquality
@@ -28,9 +34,11 @@ from geometry_solver.theorem.n_angle_sector_proportional import NAngleSectorProp
 from geometry_solver.theorem.n_line_sector_proportional import NLineSectorProportional
 
 valid_theorem = [
-    TriangleAngleSum,
+    TriangleAngleSum1,
+    TriangleAngleSum2,
     LineLengthSum,
-    CommonVertexAngleSum,
+    CommonVertexAngleSum1,
+    CommonVertexAngleSum2,
     SupplementaryAngleSum,
     PerpendicularAngle,
     OppositeVertivalAngleEquality,
@@ -46,7 +54,11 @@ valid_theorem = [
     RightTriangleArea,
     PythagoreanTheorem,
     IsoscelesTriangleJudgment1,
+    IsoscelesTriangleJudgment2,
+    IsoscelesTriangleJudgment3,
+    IsoscelesTriangleJudgment4,
     IsoscelesTriangleHypotenuseEquality,
+    IsoscelesTriangleBaseAngleEquality,
     EquilateralTriangleJudgment1,
     EquilateralTriangleHypotenuseEquality,
     SimilarTriangleAngleEquality,

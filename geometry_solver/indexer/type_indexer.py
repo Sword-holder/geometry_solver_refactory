@@ -1,15 +1,13 @@
 from typing import Union
 
 from geometry_solver.indexer.base_indexer import BaseIndexer
-from geometry_solver.entity import (Entity, Point, Line, 
-        Angle, Area, Triangle)
-from geometry_solver.relationship import (Relationship, Collineation, 
-        CommonVertexAngle, NAngleSector, NLineSector, OppositeVerticalAngle,
-        Parallel, Perpendicular, SimilarTriangle, SupplementaryAngle, 
-        IsRightTriangle, IsIsoscelesTriangle, IsEquilateralTriangle)
 from geometry_solver.graph.deduction_graph import DeductionGraph
 from geometry_solver.condition import RelationshipBased
 from geometry_solver.condition.condition import Condition
+from geometry_solver.entity import Entity
+from geometry_solver.relationship import Relationship
+import geometry_solver.entity
+import geometry_solver.relationship
 
 
 class TypeIndexer(BaseIndexer):
@@ -19,25 +17,20 @@ class TypeIndexer(BaseIndexer):
             graph: DeductionGraph):
         # In this table, key is entity/relationship type, and value 
         # is a list of entities/relationships of this type.
-        self.table = {
-            Point: [],
-            Line: [],
-            Angle: [],
-            Area: [],
-            Triangle: [],
-            Collineation: [],
-            CommonVertexAngle: [],
-            NAngleSector: [],
-            NLineSector: [],
-            OppositeVerticalAngle: [],
-            Parallel: [],
-            Perpendicular: [],
-            SimilarTriangle: [],
-            SupplementaryAngle: [],
-            IsRightTriangle: [],
-            IsIsoscelesTriangle: [],
-            IsEquilateralTriangle: []
-        }
+        keys = []
+        e_names = geometry_solver.entity.__all__
+        r_names = geometry_solver.relationship.__all__
+        for name in e_names:
+            if name == 'Entity':
+                continue
+            keys.append(getattr(geometry_solver.entity, name))
+        for name in r_names:
+            if name == 'Relationship':
+                continue
+            keys.append(getattr(geometry_solver.relationship, name))
+        self.table = {}
+        for key in keys:
+            self.table[key] = []
         self.build_index(entity, graph)
     
     def build_index(self,

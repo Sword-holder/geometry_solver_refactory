@@ -1,6 +1,7 @@
 from geometry_solver.entity import Angle, Entity, Line, Point, Triangle
 from geometry_solver.relationship import Collineation, OppositeVerticalAngle,\
-     SupplementaryAngle, CommonVertexAngle, NAngleSector, NLineSector, Perpendicular, Parallel
+    SupplementaryAngle, CommonVertexAngle, NAngleSector, NLineSector, Perpendicular, Parallel, \
+    ValueEquivalence
 from geometry_solver.condition import AttributeValue, RelationshipBased
 from geometry_solver.target.target import Target
 from geometry_solver.solver import Solver
@@ -29,7 +30,8 @@ class Parser(object):
         self._line_split = []
         self._perpendicular_pairs = []
         self._parallel_sets = []
-        self.equation_primitives = []
+        self._angle_equivalent = []
+        self._line_equivalent = []
 
     def link(self, points) -> Line:
         n = len(points)
@@ -46,7 +48,6 @@ class Parser(object):
             for j in range(i + 1, n):
                 self._line_alias[points[i].id + points[j].id] = ends_str
                 self._line_alias[points[j].id + points[i].id] = ends_str[::-1]
-
 
         for i in range(n):
             for j in range(i + 1, n):
@@ -213,7 +214,7 @@ class Parser(object):
         # Generate n angles sector.
         n_angles_sector = {}
         for aid, lid, ratio in self._angle_split:
-            near_line = self.find_line_by_ends(*self._line_alias[aid[:2]])
+            near_line = self.find_line_by_ends(*aid[:2])
             angle_ = self.find_angle_by_points(*aid)
             line_ = self.find_line_by_ends(*lid)
             rid = ' '.join([angle_.id, line_.id, str(ratio), near_line.id])
@@ -264,6 +265,19 @@ class Parser(object):
                     line2 = self.lines[line_ids[j]]
                     rid = ' '.join(['Parallel', line_ids[i], line_ids[j]])
                     parallels[rid] = Parallel(rid, line1, line2, reverse=reverse)
+        
+        # Generate ValueEquivalence relationship.
+        value_equivalence = {}
+        for obj_list in self._angle_equivalent:
+            obj_list = [self.find_angle_by_points(*obj_id) for obj_id in obj_list]
+            rid = '='.join([obj.id for obj in obj_list])
+            r = ValueEquivalence(rid, obj_list=obj_list, attr_list=['angle']*len(obj_list))
+            value_equivalence[rid] = r
+        for obj_list in self._line_equivalent:
+            obj_list = [self.find_line_by_ends(*obj_id) for obj_id in obj_list]
+            rid = '='.join([obj.id for obj in obj_list])
+            r = ValueEquivalence(rid, obj_list=obj_list, attr_list=['length']*len(obj_list))
+            value_equivalence[rid] = r
 
         if self._shown:
             print('collineations: ', sorted(collineations.keys()))
@@ -284,6 +298,7 @@ class Parser(object):
         relationships += perpendiculars.values()
         relationships += n_line_sector.values()
         relationships += parallels.values()
+        relationships += value_equivalence.values()
         for r in relationships:
             conditions.append(RelationshipBased(r))
 
@@ -412,9 +427,27 @@ class Parser(object):
 
     def add_parallel(self, line_ids):
         self._parallel_sets.append(line_ids)
-
-    def add_equation(self, eq):
-        self.equation_primitives.append(eq)
+        
+    def _add_value_equivalent(self, obj_id1, obj_id2, value_record):
+        # value_record contains a list of (obj_list)
+        duplicate = False
+        for obj_list in value_record:
+            if obj_id1 in obj_list:
+                obj_list.append(obj_id2)
+                duplicate = True
+                break
+            elif obj_id2 in obj_list:
+                obj_list.append(obj_id1)
+                duplicate = True
+                break
+        if not duplicate:
+           value_record.append(tuple([obj_id1, obj_id2]))
+        
+    def add_angle_equivalent(self, obj_id1, obj_id2):
+        self._add_value_equivalent(obj_id1, obj_id2, self._angle_equivalent)
+           
+    def add_line_equivalent(self, obj_id1, obj_id2):
+        self._add_value_equivalent(obj_id1, obj_id2, self._line_equivalent)
 
     def find_line_by_ends(self, pid1, pid2):
         return self.lines[Parser._sort_string(''.join([pid1, pid2]))]
