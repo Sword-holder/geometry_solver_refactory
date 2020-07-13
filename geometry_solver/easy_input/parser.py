@@ -5,6 +5,7 @@ from geometry_solver.relationship import Collineation, OppositeVerticalAngle,\
 from geometry_solver.condition import AttributeValue, RelationshipBased
 from geometry_solver.target.target import Target
 from geometry_solver.solver import Solver
+from geometry_solver.problem import Problem
 
 
 class Parser(object):
@@ -316,11 +317,12 @@ class Parser(object):
         target_obj = entity.find_child(target_id, target_type)
         target = Target(target_obj, target_attr)
 
-        return entity, target, conditions
+        problem = Problem(entity, conditions, target)
+        return problem
 
     def execute(self):
-        entity, target, conditions = self.parse_problem()
-        solver = Solver(entity=entity, target=target, conditions=conditions)
+        problem = self.parse_problem()
+        solver = Solver(problem)
         result = solver.solve()
         return result
 

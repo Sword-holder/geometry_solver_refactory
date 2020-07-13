@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, D, E
-from geometry_solver.easy_input import link, set_angle, get_angle, set_length, get_length
+from geometry_solver.easy_input import link, set_angle, get_angle, set_length, get_length, get_problem
 
 
 def practical_test3():
@@ -12,8 +12,10 @@ def practical_test3():
 
     set_length('BD', 210)
 
-    result = get_length('DE')
-    assert abs(result['answer'] - (3**(1/2) / 2) * 210) < 1e-3
+    get_length('DE')
+    
+    # assert abs(result['answer'] - (3**(1/2) / 2) * 210) < 1e-3
+    return get_problem()
 
 
 if __name__ == '__main__':

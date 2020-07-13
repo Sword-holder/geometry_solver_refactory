@@ -1,33 +1,24 @@
-from geometry_solver.easy_input.abc import A, B, C, D, E
-from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, get_angle, get_length, split_line, line_equivalence
+from geometry_solver.easy_input.abc import A, B, C, P
+from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, get_angle, get_length, split_line, line_equivalence, get_problem
 
 
 def practical_test44():
+    link(A, C)
+    link(A, P)
     link(A, B)
-    link(A, D)
-    link(D, C)
-    link(C, E, B)
-    link(B, D)
-    link(D, E)
-
-    set_length('CD', 1)
-    set_length('DE', 1)
-    set_length('CE', 1)
+    link(C, P, B)
     
-    split_angle('ABC', 'BD', 0.5)
-
-    set_angle('BAD', 100)
-    set_angle('BDE', 100)
-    set_angle('ABD', 30)
-
-    common_vertex_angles('B', ['A', 'D', 'C'])
-    common_vertex_angles('D', ['A', 'B', 'E', 'C'])
-
-    line_equivalence('AB', 'BE')
+    set_angle('ACB', 90)
+    set_length('AC', 3)
+    set_length('BC', 4)
+    split_line('BC', 'P', 0.5)
     
-    result = get_angle('BCD')
+    common_vertex_angles('A', ['C', 'P', 'B'])
+    
+    get_length('AP')
 
-    assert result['answer'] == 60
+    # assert result['answer'] == 60
+    return get_problem()
 
     
 if __name__ == '__main__':

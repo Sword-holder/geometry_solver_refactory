@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, D, E, F
-from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, angle_equivalence
+from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, angle_equivalence, get_problem
 
 
 def practical_test10():
@@ -18,9 +18,10 @@ def practical_test10():
 
     angle_equivalence('ABC', 'ACB')
 
-    result = get_angle('EDF')
+    get_angle('EDF')
 
-    assert result['answer'] == 68
+    # assert result['answer'] == 68
+    return get_problem()
 
 
 if __name__ == '__main__':

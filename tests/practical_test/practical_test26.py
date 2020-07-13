@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, D, E, F, P
-from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, get_angle
+from geometry_solver.easy_input import link, set_length, set_angle, split_angle, perpendicular, get_angle, common_vertex_angles, get_angle, get_problem
 
 
 def practical_test26():
@@ -24,9 +24,10 @@ def practical_test26():
     common_vertex_angles('C', ['A', 'D', 'B'])
     common_vertex_angles('C', ['B', 'P', 'F'])
     
-    result = get_angle('BPC')
+    get_angle('BPC')
 
-    assert result['answer'] == 75
+    # assert result['answer'] == 75
+    return get_problem()
 
 
 if __name__ == '__main__':

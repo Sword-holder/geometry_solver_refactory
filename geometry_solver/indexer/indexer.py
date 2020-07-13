@@ -82,7 +82,7 @@ class Indexer(BaseIndexer):
         """Find AttributeValue conditions by value."""
         return self.value_indexer.index(value)
     
-    def index_value_condition(self, obj, attr):
+    def index_value_condition(self, obj, attr, create_when_not_found=True):
         """Find the AttrValue condition attribute of object.
         
         Return None if not found.
@@ -90,7 +90,10 @@ class Indexer(BaseIndexer):
         for cond in self.graph.attr_value_conds:
             if cond.obj == obj and cond.attr_name == attr:
                 return cond
-        return AttributeValue(obj, **{attr: None})
+        if create_when_not_found:
+            return AttributeValue(obj, **{attr: None})
+        else:
+            return None
     
     def index_line_by_points(self, point1, point2):
         """Find line whose two ends are point1 and point2.

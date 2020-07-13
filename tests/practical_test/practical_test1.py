@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, D, E, F
-from geometry_solver.easy_input import link, set_angle, get_angle
+from geometry_solver.easy_input import link, set_angle, get_angle, get_problem
 
 
 def practical_test1():
@@ -13,9 +13,10 @@ def practical_test1():
     set_angle('ABE', 40)
     set_angle('ACD', 20)
 
-    result = get_angle('EFC')
+    get_angle('EFC')
 
-    assert result['answer'] == 75
+    # assert result['answer'] == 75
+    return get_problem()
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, D, E
-from geometry_solver.easy_input import link, set_length, set_angle, split_angle, parallel, get_angle, common_vertex_angles, get_angle, get_length, split_line
+from geometry_solver.easy_input import link, set_length, set_angle, split_angle, parallel, get_angle, common_vertex_angles, get_angle, get_length, split_line, get_problem
 
 
 def practical_test49():
@@ -15,9 +15,10 @@ def practical_test49():
 
     split_line('AB', 'D', 1/3)
     
-    result = get_length('BC')
+    get_length('BC')
 
-    assert result['answer'] == 12
+    # assert result['answer'] == 12
+    return get_problem()
     
     
 if __name__ == '__main__':

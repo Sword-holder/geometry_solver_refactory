@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, M, N, O
-from geometry_solver.easy_input import link, set_length, get_length, split_angle, parallel, get_angle, common_vertex_angles, get_circumference
+from geometry_solver.easy_input import link, set_length, get_length, split_angle, parallel, get_angle, common_vertex_angles, get_circumference, get_problem
 
 
 def practical_test6():
@@ -22,9 +22,10 @@ def practical_test6():
     common_vertex_angles('B', ['A', 'O', 'C'])
     common_vertex_angles('C', ['A', 'O', 'B'])
     
-    result = get_circumference('AMN')
+    get_circumference('AMN')
 
-    assert result['answer'] == 30
+    # assert result['answer'] == 30
+    return get_problem()
 
 
 if __name__ == '__main__':

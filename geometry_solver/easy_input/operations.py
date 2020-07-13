@@ -55,20 +55,28 @@ def angle_equivalence(obj_id1, obj_id2):
 # Target setter.
 def get_length(line_id):
     """Get length of a line."""
-    return _get_target(parser, line_id, Line, 'length')
+    parser.set_target(line_id, Line, 'length')
 
     
 def get_angle(angle_id):
     """Get angle of an angle."""
-    return _get_target(parser, angle_id, Angle, 'angle')
+    parser.set_target(angle_id, Angle, 'angle')
     
 
 def get_area(triangle_id):
     """Get area of an area."""
-    return _get_target(parser, triangle_id, Triangle, 'area')
+    parser.set_target(triangle_id, Triangle, 'area')
     
 
 def get_circumference(triangle_id):
     """Get circumference of an area."""
-    return _get_target(parser, triangle_id, Triangle, 'circumference')
+    parser.set_target(triangle_id, Triangle, 'circumference')
 
+
+
+def get_problem():
+    """Paese problem for client"""
+    problem = parser.parse_problem()
+    parser.initialize()
+    return problem
+    

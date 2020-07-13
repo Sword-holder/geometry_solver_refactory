@@ -1,5 +1,5 @@
 from geometry_solver.easy_input.abc import A, B, C, M, N
-from geometry_solver.easy_input import link, set_length, get_length, perpendicular, split_line
+from geometry_solver.easy_input import link, set_length, get_length, perpendicular, split_line, get_problem
 
 
 def practical_test5():
@@ -15,9 +15,10 @@ def practical_test5():
     perpendicular('MN', 'AC')
     split_line('BC', 'M', 0.5)
     
-    result = get_length('MN')
+    get_length('MN')
     
-    assert result['answer'] == 2.4
+    # assert result['answer'] == 2.4
+    return get_problem()
 
 
 if __name__ == '__main__':
