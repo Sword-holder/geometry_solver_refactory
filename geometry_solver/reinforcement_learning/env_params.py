@@ -4,6 +4,7 @@ from geometry_solver.relationship import (Collineation, CommonVertexAngle,
         NAngleSector, NLineSector, OppositeVerticalAngle, Parallel,
         Perpendicular, SimilarTriangle, SupplementaryAngle, 
         ValueEquivalence, ValueProportion)
+from geometry_solver.theorem import valid_theorem
 
 
 ENTITY_ATTRIBUTES = {
@@ -41,3 +42,4 @@ RELATIONSHIP_TYPE_NUM = len(ALL_RELATIONSHIP_TYPE)
 ENTITY_ATTRIBUTE_NUM = max([len(attrs) for attrs in ENTITY_ATTRIBUTES.values()])
 RELATIONSHIP_ATTRIBUTE_NUM = max([len(attrs) for attrs in RELATIONSHIP_ATTRIBUTES.values()])
 
+THEOREM_NUM = len(valid_theorem)

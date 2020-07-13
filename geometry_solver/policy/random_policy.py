@@ -8,7 +8,7 @@ class RandomPolicy(BasePolicy):
     def __init__(self):
         super().__init__()
 
-    def chose_theorem(self):
+    def chose_theorem(self, problem):
         theorem = np.random.choice(self.theorems)
         return theorem
 

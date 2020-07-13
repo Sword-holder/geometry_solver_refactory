@@ -40,7 +40,7 @@ class Solver(object):
         trial_times = 0
         # Adopt policy until solve the problem.
         while not self.problem.solved:
-            theorem = self.policy.chose_theorem()
+            theorem = self.policy.chose_theorem(self.problem)
             if show_process:
                 print("trial {}: chose {}".format(trial_times, theorem.name))
             self.problem.deduct(theorem)

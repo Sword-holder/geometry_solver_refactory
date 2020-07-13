@@ -6,6 +6,6 @@ class BasePolicy(object):
     def __init__(self):
         self.theorems = [th() for th in valid_theorem]
 
-    def chose_theorem(self):
+    def chose_theorem(self, problem):
         pass
 

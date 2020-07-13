@@ -23,7 +23,7 @@ class Environment(gym.Env):
             self.problem = self.problem_candidates[problem_id-1]
         else:
             self.problem = random.choice(self.problem_candidates)
-        return state_encoding(self)
+        return state_encoding(self.problem)
         
     def step(self, action):
         """action is the index of theorem list."""
