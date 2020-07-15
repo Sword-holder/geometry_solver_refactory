@@ -12,27 +12,27 @@ def initialize_theorems():
     return [th() for th in theorems]
 
 
-def state_encoding(problem):
+def state_encoding(problem, device):
     """Extract tensor presentation of environment.
     
     Return a map encodes diffirent types of component.
     """
     state_map = {}
-    state_map['entity'] = _entity_encoding(problem)
-    state_map['relationship'] = _relationship_encoding(problem)
-    state_map['target'] = _target_encoding(problem)
+    state_map['entity'] = _entity_encoding(problem, device)
+    state_map['relationship'] = _relationship_encoding(problem, device)
+    state_map['target'] = _target_encoding(problem, device)
     return state_map
     
     
-def _entity_encoding(problem):
+def _entity_encoding(problem, device):
     entity_type_tensor = torch.zeros(
             env_params.MAX_ENTITIES, 
             env_params.ENTITY_TYPE_NUM,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     entity_attribute_tensor = torch.zeros(
             env_params.MAX_ENTITIES, 
             env_params.ENTITY_ATTRIBUTE_NUM,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     indexer = problem.indexer
     entity_list = list(problem.entity.children)
     
@@ -48,19 +48,19 @@ def _entity_encoding(problem):
     return entity_tensor
     
     
-def _relationship_encoding(problem):
+def _relationship_encoding(problem, device):
     relationship_type_tensor = torch.zeros(
             env_params.MAX_RELATIONSHIPS,
             env_params.RELATIONSHIP_TYPE_NUM,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     relationship_attrbute_tensor = torch.zeros(
             env_params.MAX_RELATIONSHIPS,
             env_params.RELATIONSHIP_ATTRIBUTE_NUM,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     relationship_link_entity_tensor = torch.zeros(
             env_params.MAX_RELATIONSHIPS,
             env_params.MAX_ENTITIES,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     indexer = problem.indexer
     entity_list = list(problem.entity.children)
     
@@ -90,16 +90,16 @@ def _relationship_encoding(problem):
             (relationship_type_tensor, 
              relationship_attrbute_tensor, 
              relationship_link_entity_tensor), dim=1)
-    return relationship_tensor
+    return relationship_tensor.to(device)
 
 
-def _target_encoding(problem):
+def _target_encoding(problem, device):
     target_tensor = torch.zeros(
             env_params.MAX_ENTITIES 
             + env_params.ENTITY_ATTRIBUTE_NUM
             + env_params.MAX_RELATIONSHIPS 
             + env_params.RELATIONSHIP_ATTRIBUTE_NUM,
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
     target = problem.target
     entity_list = list(problem.entity.children)
     relationships = [cond.relationship for cond in problem.conditions \
@@ -117,5 +117,5 @@ def _target_encoding(problem):
         attr_index = env_params.RELATIONSHIP_ATTRIBUTES[type(target.obj)].index(target.attr)
         target_tensor[base + env_params.MAX_RELATIONSHIPS + attr_index] = 1
     
-    return target_tensor
+    return target_tensor.to(device)
         

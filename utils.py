@@ -26,7 +26,7 @@ def test_all_problems(policy=None):
     total_before_prune = 0
     total_after_prune = 0
 
-    for problem in tqdm(problems):
+    for problem in problems:
         solver = Solver(problem, policy)
         result = solver.solve(show_answer=False, show_process=False, show_graph=False, prune=True)
         total_trial += result['trial_times']

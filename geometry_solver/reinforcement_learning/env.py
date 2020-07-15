@@ -1,7 +1,9 @@
 from typing import List
 import random
+import copy
 
 import gym
+import torch
 
 from geometry_solver.problem import Problem
 from geometry_solver.theorem import Theorem
@@ -10,27 +12,31 @@ from geometry_solver.reinforcement_learning.utils import state_encoding, initial
 
 class Environment(gym.Env):
     
-    def __init__(self, problems: List[Problem], theorems: List[Theorem]=None):
+    def __init__(self,
+            problems: List[Problem], 
+            theorems: List[Theorem]=None, 
+            device='cpu'):
         self.problem_candidates = problems
         if theorems is not None:
             self.theorems = theorems
         else:
             self.theorems = initialize_theorems()
+        self.device = device
         self.reset()
     
     def reset(self, problem_id=None):
         if problem_id is not None:
-            self.problem = self.problem_candidates[problem_id-1]
+            self.problem = copy.deepcopy(self.problem_candidates[problem_id-1])
         else:
-            self.problem = random.choice(self.problem_candidates)
-        return state_encoding(self.problem)
+            self.problem = copy.deepcopy(random.choice(self.problem_candidates))
+        return state_encoding(self.problem, self.device)
         
     def step(self, action):
         """action is the index of theorem list."""
         action = int(action)
         theorem = self.theorems[action]
         self.problem.deduct(theorem)
-        obs = state_encoding(self.problem)
+        obs = state_encoding(self.problem, self.device)
         done = self.problem.solved
         reward = 100 if done else -1
         info = {}

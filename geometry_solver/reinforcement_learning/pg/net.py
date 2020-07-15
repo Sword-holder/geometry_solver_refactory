@@ -6,8 +6,10 @@ import geometry_solver.reinforcement_learning.env_params as env_params
 
 class Net(nn.Module):
 
-    def __init__(self):
+    def __init__(self, device):
         super().__init__()
+        self.device = device
+
         self.entity_encoder = nn.Sequential(
             nn.Linear(env_params.ENTITY_TYPE_NUM + env_params.ENTITY_ATTRIBUTE_NUM, 32),
             nn.ReLU(),
@@ -72,7 +74,7 @@ class Net(nn.Module):
                 if entity_tensor[row, i] == 1:
                     type_tensor.append(entity_feature[row])
             if not type_tensor:
-                type_tensor = torch.tensor(0).float()
+                type_tensor = torch.tensor(0).float().to(self.device)
             else:
                 type_tensor = torch.stack(type_tensor)
                 type_tensor = torch.max(type_tensor)
@@ -86,7 +88,7 @@ class Net(nn.Module):
                 if relationship_tensor[row, i] == 1:
                     type_tensor.append(relationship_feature[row])
             if not type_tensor:
-                type_tensor = torch.tensor(0).float()
+                type_tensor = torch.tensor(0).float().to(self.device)
             else:
                 type_tensor = torch.stack(type_tensor)
                 type_tensor = torch.max(type_tensor)
