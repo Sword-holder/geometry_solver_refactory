@@ -43,6 +43,10 @@ class Problem(object):
                 tg_.from_theorem = theorem
                 self.indexer.update_index(tg_)
                 
+    def is_valid(self, theorem):
+        """Determine whether the given theorem is valid."""
+        return True if theorem.index(self.indexer) else False
+                
     def solving_path(self):
         return self.graph.solving_path()
     

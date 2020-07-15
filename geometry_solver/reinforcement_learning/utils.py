@@ -6,10 +6,14 @@ from geometry_solver.entity import Entity
 from geometry_solver.condition import RelationshipBased
 import geometry_solver.theorem
 
+_theorems = None
 
 def initialize_theorems():
-    theorems = geometry_solver.theorem.valid_theorem
-    return [th() for th in theorems]
+    global _theorems
+    if _theorems is None:
+        _theorems = geometry_solver.theorem.valid_theorem
+        _theorems = [th() for th in _theorems]
+    return _theorems
 
 
 def state_encoding(problem, device):
@@ -21,6 +25,7 @@ def state_encoding(problem, device):
     state_map['entity'] = _entity_encoding(problem, device)
     state_map['relationship'] = _relationship_encoding(problem, device)
     state_map['target'] = _target_encoding(problem, device)
+    state_map['action_mask'] = _action_mask_encoding(problem, device)
     return state_map
     
     
@@ -90,7 +95,7 @@ def _relationship_encoding(problem, device):
             (relationship_type_tensor, 
              relationship_attrbute_tensor, 
              relationship_link_entity_tensor), dim=1)
-    return relationship_tensor.to(device)
+    return relationship_tensor
 
 
 def _target_encoding(problem, device):
@@ -117,5 +122,17 @@ def _target_encoding(problem, device):
         attr_index = env_params.RELATIONSHIP_ATTRIBUTES[type(target.obj)].index(target.attr)
         target_tensor[base + env_params.MAX_RELATIONSHIPS + attr_index] = 1
     
-    return target_tensor.to(device)
+    return target_tensor
         
+
+def _action_mask_encoding(problem, device):
+    action_mask_tensor = torch.zeros(
+            env_params.THEOREM_NUM,
+            dtype=torch.float32,
+            device=device)
+    theorems = initialize_theorems()
+    for i, th in enumerate(theorems):
+        if problem.is_valid(theorems):
+            action_mask_tensor[i] = 1
+    return action_mask_tensor
+

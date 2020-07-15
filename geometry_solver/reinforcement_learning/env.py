@@ -14,13 +14,9 @@ class Environment(gym.Env):
     
     def __init__(self,
             problems: List[Problem], 
-            theorems: List[Theorem]=None, 
             device='cpu'):
         self.problem_candidates = problems
-        if theorems is not None:
-            self.theorems = theorems
-        else:
-            self.theorems = initialize_theorems()
+        self.theorems = initialize_theorems()
         self.device = device
         self.reset()
     

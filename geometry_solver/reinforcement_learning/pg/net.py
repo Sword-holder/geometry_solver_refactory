@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 import geometry_solver.reinforcement_learning.env_params as env_params
 
@@ -37,13 +38,9 @@ class Net(nn.Module):
             nn.Linear(env_params.MAX_ENTITIES 
                     + env_params.ENTITY_ATTRIBUTE_NUM
                     + env_params.MAX_RELATIONSHIPS 
-                    + env_params.RELATIONSHIP_ATTRIBUTE_NUM, 128),
+                    + env_params.RELATIONSHIP_ATTRIBUTE_NUM, 64),
             nn.ReLU(),
-            nn.Linear(128, 64),
-            nn.ReLU(),
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Linear(32, TARGET_ENCODING_SIZE)
+            nn.Linear(64, TARGET_ENCODING_SIZE)
         )
         
         env_encoding_size = env_params.ENTITY_TYPE_NUM \
@@ -55,12 +52,13 @@ class Net(nn.Module):
             nn.Linear(128, env_params.THEOREM_NUM),
             nn.Softmax(dim=0)
         )
-  
+
 
     def forward(self, x):
         entity_tensor = x['entity']
         relationship_tensor = x['relationship']
         target_tensor = x['target']
+        action_mask_tensor = x['action_mask']
         
         entity_feature = self.entity_encoder(entity_tensor)
         relationship_feature = self.relationship_encoder(relationship_tensor)
@@ -100,6 +98,9 @@ class Net(nn.Module):
         
         env_feature = torch.cat([entiy_type_group, relationship_type_group, target_feature])
         logits = self.actor(env_feature)
+        
+        # Add action mask
+        logits = F.softmax(logits * action_mask_tensor)
         
         return logits
 
