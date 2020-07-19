@@ -12,15 +12,19 @@ from geometry_solver.policy import RLPolicy
 
 
 class Agent(object):
-    
+
     def __init__(self, device):
         self.net = Net(device).to(device)
 
     def chose_action(self, obs):
         with torch.no_grad():
             probs = self.net(obs)
-            d = Categorical(probs)
-            action = d.sample()
+            try:
+                d = Categorical(probs)
+                action = d.sample()
+            except:
+                print(probs)
+                exit(1)
         return action.cpu().data.numpy().astype(int)
 
     def update_policy(self, obs):
@@ -45,7 +49,7 @@ class Trainer(object):
     def test_performance(self, env, agent):
         print('Test performance...')
         final_score = []
-    
+
         iter_obj = range(self.test_num)
         if self.show_process_bar:
             iter_obj = tqdm(iter_obj)
@@ -62,7 +66,7 @@ class Trainer(object):
                     break
             final_score.append(total_reward)
         print('Final score = {}'.format(sum(final_score) / len(final_score)))
-    
+
     def update_policy(self, agent, state_pool, action_pool, reward_pool):
         print('Update policy...')
         self.optimizer.zero_grad()

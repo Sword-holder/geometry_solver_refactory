@@ -9,7 +9,7 @@ from geometry_solver.policy import RLPolicy
 parser = argparse.ArgumentParser(description='ArgumentParser for reinforcement '
         'learning training configuration.')
 parser.add_argument('--training_episode', type=int, default=100)
-parser.add_argument('--learning_rate', type=float, default=0.01)
+parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--gamma', type=float, default=0.9)
 parser.add_argument('--sample_num', type=int, default=100)
 parser.add_argument('--test_num', type=int, default=10)
@@ -26,12 +26,12 @@ def test_rl_performance(agent):
     avg_after_prune_hist = []
 
     policy = RLPolicy(agent, args.device)
-    for _ in range(1):
+    for _ in range(5):
         avg_trial, avg_before_prune, avg_after_prune = test_all_problems(policy)
         avg_trial_hist.append(avg_trial)
         avg_before_prune_hist.append(avg_before_prune)
         avg_after_prune_hist.append(avg_after_prune)
-        
+
     # print(avg_trial_hist)
     # print(avg_before_prune_hist)
     # print(avg_after_prune_hist)

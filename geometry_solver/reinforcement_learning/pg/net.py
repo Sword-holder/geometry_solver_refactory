@@ -19,8 +19,8 @@ class Net(nn.Module):
             nn.Linear(8, 1)
         )
         self.relationship_encoder = nn.Sequential(
-            nn.Linear(env_params.RELATIONSHIP_TYPE_NUM 
-                      + env_params.RELATIONSHIP_ATTRIBUTE_NUM 
+            nn.Linear(env_params.RELATIONSHIP_TYPE_NUM
+                      + env_params.RELATIONSHIP_ATTRIBUTE_NUM
                       + env_params.MAX_ENTITIES, 128),
             nn.ReLU(),
             nn.Linear(128, 64),
@@ -31,18 +31,18 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.Linear(8, 1)
         )
-        
+
         TARGET_ENCODING_SIZE = 16
-        
+
         self.target_encoder = nn.Sequential(
-            nn.Linear(env_params.MAX_ENTITIES 
+            nn.Linear(env_params.MAX_ENTITIES
                     + env_params.ENTITY_ATTRIBUTE_NUM
-                    + env_params.MAX_RELATIONSHIPS 
+                    + env_params.MAX_RELATIONSHIPS
                     + env_params.RELATIONSHIP_ATTRIBUTE_NUM, 64),
             nn.ReLU(),
             nn.Linear(64, TARGET_ENCODING_SIZE)
         )
-        
+
         env_encoding_size = env_params.ENTITY_TYPE_NUM \
                 + env_params.RELATIONSHIP_TYPE_NUM \
                 + TARGET_ENCODING_SIZE
@@ -59,7 +59,7 @@ class Net(nn.Module):
         relationship_tensor = x['relationship']
         target_tensor = x['target']
         action_mask_tensor = x['action_mask']
-        
+
         entity_feature = self.entity_encoder(entity_tensor)
         relationship_feature = self.relationship_encoder(relationship_tensor)
 
@@ -78,7 +78,7 @@ class Net(nn.Module):
                 type_tensor = torch.max(type_tensor)
             entiy_type_group.append(type_tensor)
         entiy_type_group = torch.stack(entiy_type_group)
-            
+
         relationship_type_group = []
         for i in range(env_params.RELATIONSHIP_TYPE_NUM):
             type_tensor = []
@@ -92,15 +92,26 @@ class Net(nn.Module):
                 type_tensor = torch.max(type_tensor)
             relationship_type_group.append(type_tensor)
         relationship_type_group = torch.stack(relationship_type_group)
-        
+
         # Target encoding
         target_feature = self.target_encoder(target_tensor)
-        
+
         env_feature = torch.cat([entiy_type_group, relationship_type_group, target_feature])
         logits = self.actor(env_feature)
-        
+
         # Add action mask
-        logits = F.softmax(logits * action_mask_tensor)
-        
-        return logits
+        masked_logits = logits * action_mask_tensor
+
+        if torch.isnan(masked_logits).any():
+            print('Here is masked logits:')
+            print(masked_logits)
+            print('Here is logits:')
+            print(logits)
+            print('Here is action mask tensor:')
+            print(action_mask_tensor)
+            print('Here is env feature:')
+            print(env_feature)
+
+
+        return masked_logits
 
