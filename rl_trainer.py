@@ -8,15 +8,22 @@ from geometry_solver.policy import RLPolicy
 
 parser = argparse.ArgumentParser(description='ArgumentParser for reinforcement '
         'learning training configuration.')
+parser.add_argument('--algorithm', type=str)
 parser.add_argument('--training_episode', type=int, default=100)
 parser.add_argument('--learning_rate', type=float, default=0.001)
-parser.add_argument('--gamma', type=float, default=0.9)
+parser.add_argument('--gamma', type=float, default=00.9)
 parser.add_argument('--sample_num', type=int, default=100)
 parser.add_argument('--test_num', type=int, default=10)
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--show_process_bar', action='store_true')
+parser.add_argument('--log_interval', type=int, default=1)
+
 
 args = parser.parse_args()
+
+
+exec('from geometry_solver.reinforcement_learning.{}.trainer import Trainer'.format(
+        args.algorithm))
 
 
 def test_rl_performance(agent):
