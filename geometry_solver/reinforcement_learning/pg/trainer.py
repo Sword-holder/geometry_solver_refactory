@@ -6,7 +6,7 @@ import gym
 from tqdm import tqdm
 import numpy as np
 
-from geometry_solver.reinforcement_learning.pg.net import Net
+from geometry_solver.reinforcement_learning.pg.net_gru import Net
 from geometry_solver.reinforcement_learning.env import Environment
 from geometry_solver.policy import RLPolicy
 
