@@ -10,13 +10,13 @@ avg_after_prune_hist = []
 
 
 def test_all_problems():
-    problems = get_practical_problems(range(1, 51))
+    problems = get_practical_problems(range(1, 31))
 
     total_trial = 0
     total_before_prune = 0
     total_after_prune = 0
 
-    for i, problem in tqdm(problems):
+    for problem in tqdm(problems):
         solver = Solver(problem)
         result = solver.solve(show_answer=False, show_process=False, show_graph=False, prune=True)
         total_trial += result['trial_times']
