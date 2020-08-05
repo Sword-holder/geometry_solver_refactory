@@ -19,14 +19,17 @@ def get_problem(number, test_type):
     return locals()['problem']
 
 
-def test_all_problems(policy=None):
+def test_all_problems(policy=None, show_process_bar=False):
     problems = get_practical_problems(range(1, 31))
 
     total_trial = 0
     total_before_prune = 0
     total_after_prune = 0
 
-    for problem in problems:
+    iter_obj = problems
+    if show_process_bar:
+        iter_obj = tqdm(iter_obj)
+    for problem in iter_obj:
         solver = Solver(problem, policy)
         result = solver.solve(show_answer=False, show_process=False, show_graph=False, prune=True)
         total_trial += result['trial_times']

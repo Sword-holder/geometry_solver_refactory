@@ -11,12 +11,15 @@ parser = argparse.ArgumentParser(description='ArgumentParser for reinforcement '
 parser.add_argument('--algorithm', type=str)
 parser.add_argument('--training_episode', type=int, default=100)
 parser.add_argument('--learning_rate', type=float, default=0.001)
-parser.add_argument('--gamma', type=float, default=00.9)
+parser.add_argument('--gamma', type=float, default=0.9)
 parser.add_argument('--sample_num', type=int, default=100)
 parser.add_argument('--test_num', type=int, default=10)
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--show_process_bar', action='store_true')
 parser.add_argument('--log_interval', type=int, default=1)
+parser.add_argument('--epsilon', type=float, default=0.8)
+parser.add_argument('--target_replace_iter', type=int, default=10)
+parser.add_argument('--memory_capacity', type=int, default=2000)
 
 
 args = parser.parse_args()
@@ -33,8 +36,10 @@ def test_rl_performance(agent):
     avg_after_prune_hist = []
 
     policy = RLPolicy(agent, args.device)
-    for _ in range(5):
-        avg_trial, avg_before_prune, avg_after_prune = test_all_problems(policy)
+    for _ in range(1):
+        avg_trial, avg_before_prune, avg_after_prune = test_all_problems(
+            policy,
+            args.show_process_bar)
         avg_trial_hist.append(avg_trial)
         avg_before_prune_hist.append(avg_before_prune)
         avg_after_prune_hist.append(avg_after_prune)

@@ -10,7 +10,7 @@ avg_after_prune_hist = []
 
 
 def test_all_problems():
-    problems = get_practical_problems(range(1, 31))
+    problems = get_practical_problems(range(1, 51))
 
     total_trial = 0
     total_before_prune = 0

@@ -33,11 +33,16 @@ class Agent(object):
     def chose_action(self, state):
         probs, state_value = self.model(state)
 
-        # create a categorical distribution over the list of probabilities of actions
-        m = Categorical(probs)
+        try:
+            # create a categorical distribution over the list of probabilities of actions
+            m = Categorical(probs)
 
-        # and sample an action using the distribution
-        action = m.sample()
+            # and sample an action using the distribution
+            action = m.sample()
+        except:
+            print(probs)
+            print(state['action_mask'])
+            exit(1)
 
         # save to action buffer
         self.saved_actions.append(SavedAction(m.log_prob(action), state_value))

@@ -25,14 +25,14 @@ class Environment(gym.Env):
             self.problem = copy.deepcopy(self.problem_candidates[problem_id-1])
         else:
             self.problem = copy.deepcopy(random.choice(self.problem_candidates))
-        return state_encoding(self.problem, self.device)
+        return state_encoding(self.problem, self.device, None)
         
     def step(self, action):
         """action is the index of theorem list."""
         action = int(action)
         theorem = self.theorems[action]
         self.problem.deduct(theorem)
-        obs = state_encoding(self.problem, self.device)
+        obs = state_encoding(self.problem, self.device, action)
         done = self.problem.solved
         reward = 100 if done else -1
         info = {}

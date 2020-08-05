@@ -29,7 +29,9 @@ class PerpendicularAngle(Theorem):
                     if p1 == foot_point or p2 == foot_point:
                         continue
                     angle = indexer.index_angle_by_points(p1, foot_point, p2)
-                    ret.append([[cond], AttributeValue(angle, **{'angle': None})])
+                    angle_cond = indexer.index_value_condition(angle, 'angle')
+                    if angle_cond.attr_value is None:
+                        ret.append([[cond], AttributeValue(angle, **{'angle': None})])
         return ret
 
     def deduct(self, sources: List[Condition], target: Condition):

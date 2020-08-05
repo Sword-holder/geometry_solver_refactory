@@ -28,8 +28,9 @@ class TriangleArea(Theorem):
             side3 = indexer.index_value_condition(th.side3, 'length')
             if side3.attr_value is None: 
                 continue
-            ret.append([[side1, side2, side3], 
-                        AttributeValue(th, **{'area': None})])
+            area = indexer.index_value_condition(th, 'area')
+            if area.attr_value is None:
+                ret.append([[side1, side2, side3], area])
         return ret
 
     def deduct(self, sources: List[Condition], target: Condition):
