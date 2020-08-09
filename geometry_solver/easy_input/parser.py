@@ -1,7 +1,7 @@
 from geometry_solver.entity import Angle, Entity, Line, Point, Triangle
 from geometry_solver.relationship import Collineation, OppositeVerticalAngle,\
     SupplementaryAngle, CommonVertexAngle, NAngleSector, NLineSector, Perpendicular, Parallel, \
-    ValueEquivalence
+    ValueEquivalence, IsEquilateralTriangle, IsRightTriangle
 from geometry_solver.condition import AttributeValue, RelationshipBased
 from geometry_solver.target.target import Target
 from geometry_solver.solver import Solver
@@ -33,6 +33,8 @@ class Parser(object):
         self._parallel_sets = []
         self._angle_equivalent = []
         self._line_equivalent = []
+        self._equilateral_triangle = []
+        self._right_triangle = []
 
     def link(self, points) -> Line:
         n = len(points)
@@ -279,6 +281,23 @@ class Parser(object):
             rid = '='.join([obj.id for obj in obj_list])
             r = ValueEquivalence(rid, obj_list=obj_list, attr_list=['length']*len(obj_list))
             value_equivalence[rid] = r
+            
+        # Generate equilateral triangle
+        equilateral_triangles = {}
+        for th_id in self._equilateral_triangle:
+            std_th_id = ''.join(sorted(th_id))
+            th = self.triangles[std_th_id]
+            r = IsEquilateralTriangle(std_th_id, th)
+            equilateral_triangles[std_th_id] = r
+            
+        # Generate right triangle
+        right_triangles = {}
+        for th_id, aid in self._right_triangle:
+            std_th_id = ''.join(sorted(th_id))
+            right_angle = self.find_angle_by_points(*aid)
+            th = self.triangles[std_th_id]
+            r = IsRightTriangle(std_th_id, th, right_angle)
+            right_triangles[std_th_id] = r
 
         if self._shown:
             print('collineations: ', sorted(collineations.keys()))
@@ -300,6 +319,8 @@ class Parser(object):
         relationships += n_line_sector.values()
         relationships += parallels.values()
         relationships += value_equivalence.values()
+        relationships += equilateral_triangles.values()
+        relationships += right_triangles.values()
         for r in relationships:
             conditions.append(RelationshipBased(r))
 
@@ -450,6 +471,12 @@ class Parser(object):
            
     def add_line_equivalent(self, obj_id1, obj_id2):
         self._add_value_equivalent(obj_id1, obj_id2, self._line_equivalent)
+        
+    def add_equilateral_triangle(self, triangle_id):
+        self._equilateral_triangle.append(triangle_id)
+        
+    def add_right_triangle(self, triangle_id, right_angle_id):
+        self._right_triangle.append((triangle_id, right_angle_id))
 
     def find_line_by_ends(self, pid1, pid2):
         return self.lines[Parser._sort_string(''.join([pid1, pid2]))]

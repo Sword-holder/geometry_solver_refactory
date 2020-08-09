@@ -51,6 +51,12 @@ def line_equivalence(obj_id1, obj_id2):
 
 def angle_equivalence(obj_id1, obj_id2):
     parser.add_angle_equivalent(obj_id1, obj_id2)
+    
+def is_equilateral_triangle(triangle_id):
+    parser.add_equilateral_triangle(triangle_id)
+
+def is_right_triangle(triangle_id, right_angle_id):
+    parser.add_right_triangle(triangle_id, right_angle_id)
 
 # Target setter.
 def get_length(line_id):

@@ -8,9 +8,9 @@ from geometry_solver.relationship import IsEquilateralTriangle
 from geometry_solver.entity import Triangle
 
 
-class EquilateralTriangleSidesEquality(Theorem):
+class EquilateralTriangleAngle(Theorem):
 
-    name = "equilateral triangle's sides equality"
+    name = "equilateral triangle's angle equals to 60 degree."
 
     def __init__(self):
         super().__init__()
@@ -20,21 +20,16 @@ class EquilateralTriangleSidesEquality(Theorem):
         e_conds = indexer.index_by_type(IsEquilateralTriangle)
         for cond in e_conds:
             r = cond.relationship
-            pre = []
             tg = []
-            for side in r.triangle.sides:
-                side_cond = indexer.index_value_condition(side, 'length')
-                if side_cond.attr_value is None:
-                    tg.append(side_cond)
-                else:
-                    pre.append(side_cond)    
-            if pre:
-                pre = [cond] + pre
-                for t in tg:
-                    ret.append([pre, t])
+            for angle in r.triangle.angles:
+                angle_cond = indexer.index_value_condition(angle, 'angle')
+                if angle_cond.attr_value is None:
+                    tg.append(angle_cond)
+            for t in tg:
+                ret.append([[cond], t])
         return ret
 
     def deduct(self, sources: List[Condition], target: Condition):
-        target.attr_value = sources[1].attr_value
+        target.attr_value = 60
         return sources, target
 
