@@ -11,22 +11,22 @@ from geometry_solver.reinforcement_learning.utils import state_encoding, initial
 
 
 class Environment(gym.Env):
-    
+
     def __init__(self,
-            problems: List[Problem], 
+            problems: List[Problem],
             device='cpu'):
         self.problem_candidates = problems
         self.theorems = initialize_theorems()
         self.device = device
         self.reset()
-    
+
     def reset(self, problem_id=None):
         if problem_id is not None:
             self.problem = copy.deepcopy(self.problem_candidates[problem_id-1])
         else:
             self.problem = copy.deepcopy(random.choice(self.problem_candidates))
         return state_encoding(self.problem, self.device, None)
-        
+
     def step(self, action):
         """action is the index of theorem list."""
         action = int(action)
@@ -37,7 +37,7 @@ class Environment(gym.Env):
         reward = 100 if done else -1
         info = {}
         return obs, reward, done, info
-    
+
     def render(self, mode='human'):
         """
             - human: show deduction graph.
@@ -52,10 +52,10 @@ class Environment(gym.Env):
             print(state_encoding(self.problem))
         elif mode == 'ansi':
             print(self.problem.plain_word_answer)
-    
+
     def close(self):
         pass
-    
+
     def seed(self, seed=None):
         """Sets the seed for this env's random number generator(s).
         Note:

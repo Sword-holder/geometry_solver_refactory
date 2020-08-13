@@ -9,7 +9,7 @@ ROOT = 'tests'
 
 def get_practical_problems(ids: List[int]):
     return [get_problem(i, test_type='practical_test') for i in ids]
-    
+
 
 def get_problem(number, test_type):
     module_name = test_type + str(number)
@@ -20,7 +20,7 @@ def get_problem(number, test_type):
 
 
 def test_all_problems(policy=None, show_process_bar=False):
-    problems = get_practical_problems(range(1, 131))
+    problems = get_practical_problems(range(101, 131))
 
     total_trial = 0
     total_before_prune = 0
@@ -40,9 +40,9 @@ def test_all_problems(policy=None, show_process_bar=False):
     # print('Average trial times: {}'.format(total_trial / len(problems)))
     # print('Solving step before prune {}'.format(total_before_prune / len(problems)))
     # print('Solving step after prune {}'.format(total_after_prune / len(problems)))
-    
+
     avg_trial = total_trial / len(problems)
     avg_before_prune = total_before_prune / len(problems)
     avg_after_prune = total_after_prune / len(problems)
-    
+
     return avg_trial, avg_before_prune, avg_after_prune
