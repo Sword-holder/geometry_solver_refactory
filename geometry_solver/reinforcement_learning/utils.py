@@ -60,7 +60,7 @@ def _relationship_encoding(problem, device):
             env_params.MAX_RELATIONSHIPS,
             env_params.RELATIONSHIP_TYPE_NUM,
             dtype=torch.float32, device=device)
-    relationship_attrbute_tensor = torch.zeros(
+    relationship_attribute_tensor = torch.zeros(
             env_params.MAX_RELATIONSHIPS,
             env_params.RELATIONSHIP_ATTRIBUTE_NUM,
             dtype=torch.float32, device=device)
@@ -78,9 +78,9 @@ def _relationship_encoding(problem, device):
         type_index = env_params.ALL_RELATIONSHIP_TYPE.index(type(r))
         relationship_type_tensor[i, type_index] = 1
         for j, attr in enumerate(env_params.RELATIONSHIP_ATTRIBUTES[type(r)]):
-            cond = indexer.index_value_condition(e, attr, create_when_not_found=False)
+            cond = indexer.index_value_condition(r, attr, create_when_not_found=False)
             if cond is not None:
-                entity_attribute_tensor[i, j] = 1
+                relationship_attribute_tensor[i, j] = 1
 
         for member_str in dir(r):
             member = getattr(r, member_str)
@@ -95,7 +95,7 @@ def _relationship_encoding(problem, device):
 
     relationship_tensor = torch.cat(
             (relationship_type_tensor,
-             relationship_attrbute_tensor,
+             relationship_attribute_tensor,
              relationship_link_entity_tensor), dim=1)
     return relationship_tensor
 

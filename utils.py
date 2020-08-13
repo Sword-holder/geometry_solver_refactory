@@ -20,7 +20,7 @@ def get_problem(number, test_type):
 
 
 def test_all_problems(policy=None, show_process_bar=False):
-    problems = get_practical_problems(range(1, 31))
+    problems = get_practical_problems(range(1, 131))
 
     total_trial = 0
     total_before_prune = 0
@@ -29,7 +29,8 @@ def test_all_problems(policy=None, show_process_bar=False):
     iter_obj = problems
     if show_process_bar:
         iter_obj = tqdm(iter_obj)
-    for problem in iter_obj:
+    for i, problem in enumerate(iter_obj):
+        # print(i)
         solver = Solver(problem, policy)
         result = solver.solve(show_answer=False, show_process=False, show_graph=False, prune=True)
         total_trial += result['trial_times']

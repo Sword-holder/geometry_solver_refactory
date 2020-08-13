@@ -11,8 +11,8 @@ def practical_test107():
     
     perpendicular('CE', 'AB')
     perpendicular('BD', 'AC')
-    set_length('OB', 1)
-    set_length('OC', 1)
+    set_length('OB', 2)
+    set_length('OC', 2)
     set_length('AB', 3)
     set_angle('ABC', 60)
     set_angle('ACB', 60)

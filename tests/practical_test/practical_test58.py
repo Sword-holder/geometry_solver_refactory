@@ -8,9 +8,9 @@ def practical_test58():
     link(B, C, E)
     link(A, D, E)
 
-    set_length('CD', 10)
-    set_length('AB', 20)
-    set_length('CE', 10)
+    set_length('CD', 20)
+    set_length('AB', 30)
+    set_length('CE', 20)
     set_angle('DCE', 90)
     is_right_triangle('ABE', 'ABE')
     parallel('AB', 'DC')
