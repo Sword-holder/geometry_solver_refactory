@@ -1,4 +1,5 @@
 import torch
+import math
 
 import geometry_solver.reinforcement_learning.env_params as env_params
 from geometry_solver.problem import Problem
@@ -137,4 +138,11 @@ def _action_mask_encoding(problem, device):
         if problem.is_valid(th):
             action_mask_tensor[i] = 1
     return action_mask_tensor
+
+
+def normal_distribution_value(x, mu, std):
+    denominator = math.exp(-((x-mu)**2) / (2*(std**2)))
+    divisor = math.sqrt(2 * math.pi * (std**2))
+    return denominator / divisor
+
 

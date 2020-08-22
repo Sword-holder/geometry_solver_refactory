@@ -6,7 +6,7 @@ import gym
 from tqdm import tqdm
 import numpy as np
 
-from geometry_solver.reinforcement_learning.pg.net_gru import Net
+from geometry_solver.reinforcement_learning.pg.net import Net
 from geometry_solver.reinforcement_learning.env import Environment
 from geometry_solver.policy import RLPolicy
 
@@ -42,7 +42,10 @@ class Trainer(object):
         self.show_process_bar = args.show_process_bar
         self.device = args.device
 
-        self.env = Environment(problems, device=args.device)
+        self.env = Environment(problems,
+                curriculum_learning=args.curriculum_learning,
+                max_episode=args.training_episode,
+                device=args.device)
         self.agent = Agent(args.device)
         self.optimizer = Adam(self.agent.net.parameters(), lr=args.learning_rate)
 
@@ -120,6 +123,7 @@ class Trainer(object):
         agent = self.agent
         env = self.env
         for i in range(self.training_episode):
+            env.episode = i
             print('Episode {}'.format(i))
             state_pool, action_pool, reward_pool = self.interaction(env, agent)
             self.update_policy(agent, state_pool, action_pool, reward_pool)

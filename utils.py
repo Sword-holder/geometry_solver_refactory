@@ -20,7 +20,7 @@ def get_problem(number, test_type):
 
 
 def test_all_problems(policy=None, show_process_bar=False):
-    problems = get_practical_problems(range(1, 131))
+    problems = get_practical_problems(range(101, 131))
 
     total_trial = 0
     total_before_prune = 0

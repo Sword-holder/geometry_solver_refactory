@@ -1,30 +1,39 @@
 from typing import List
 import random
 import copy
+import math
 
 import gym
 import torch
+from torch.distributions import Categorical
 
 from geometry_solver.problem import Problem
 from geometry_solver.theorem import Theorem
 from geometry_solver.reinforcement_learning.utils import state_encoding, initialize_theorems
-
+from geometry_solver.reinforcement_learning.utils import normal_distribution_value
 
 class Environment(gym.Env):
     
     def __init__(self,
-            problems: List[Problem], 
+            problems: List[Problem],
+            curriculum_learning=False,
+            max_episode=0,
             device='cpu'):
         self.problem_candidates = problems
         self.theorems = initialize_theorems()
+        self.curriculum_learning = curriculum_learning
         self.device = device
+
+        self.max_episode = max_episode
+        self.episode = 0
+
         self.reset()
-    
+
     def reset(self, problem_id=None):
         if problem_id is not None:
             self.problem = copy.deepcopy(self.problem_candidates[problem_id-1])
         else:
-            self.problem = copy.deepcopy(random.choice(self.problem_candidates))
+            self.problem = self.chose_problem()
         return state_encoding(self.problem, self.device, None)
         
     def step(self, action):
@@ -70,4 +79,20 @@ class Environment(gym.Env):
               this won't be true if seed=None, for example.
         """
         return
+
+
+    def chose_problem(self):
+        if self.curriculum_learning:
+            mu = self.episode // self.max_episode
+            std = 1
+            probs = []
+            for x in range(len(self.problem_candidates)):
+                probs.append(normal_distribution_value(x, mu, std))
+            probs = torch.tensor(probs)
+            d = Categorical(probs)
+            index = d.sample()
+            problem = self.problem_candidates[index]
+        else:
+            problem = random.choice(self.problem_candidates)
+        return copy.deepcopy(problem)
 
