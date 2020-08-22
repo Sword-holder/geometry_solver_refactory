@@ -12,7 +12,7 @@ def practical_test46():
     split_angle('ABC', 'BP', 0.5)
 
     set_length('DB', 1)
-    set_length('DP', 1)
+    set_length('DP', 1.2)
     set_length('BP', 3 ** (1/2))
     set_length('BE', 2)
 
