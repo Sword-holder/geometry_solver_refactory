@@ -1,19 +1,36 @@
-import argparse
-import os
+from copy import deepcopy
+
+from tests.practical_test.practical_test5 import practical_test5
+from geometry_solver import Solver
+from geometry_solver.reinforcement_learning.utils import initialize_theorems
 
 
-parser = argparse.ArgumentParser(description='Argument of test script.')
+theorems = initialize_theorems()
 
-parser.add_argument('--type', type=str, help='test type(options: basic_test, easy_input_test, ...)')
-parser.add_argument('--number', type=int, help='test_script_id')
+problems = []
+for i in range(1, 51):
+    exec('from tests.practical_test.practical_test{} import practical_test{}'.format(i, i))
+    exec('problems.append(practical_test{}())'.format(i))
 
-args = parser.parse_args()
 
-root = 'tests'
-test_type = args.type
-number = args.number
-module_name = test_type + str(number)
+problem = problems[4]
+q = []
+next_q = []
 
-path = '.'.join([root, test_type, module_name])
-exec('from {} import {}'.format(path, module_name))
-exec('{}()'.format(module_name))
+q.append(problem)
+steps = [1]
+
+while True:
+    print(len(q))
+    for p in q:
+        for th in theorems:
+            if p.is_valid(th):
+                p_copy = deepcopy(p)
+                p_copy.deduct(th)
+                if p_copy.solved:
+                    print('problem solved!')
+                    exit(0)
+                next_q.append(p_copy)
+    q = next_q
+    next_q = []
+

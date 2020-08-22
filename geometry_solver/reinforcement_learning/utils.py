@@ -27,8 +27,8 @@ def state_encoding(problem, device, last_step):
     state_map['relationship'] = _relationship_encoding(problem, device)
     state_map['target'] = _target_encoding(problem, device)
     state_map['action_mask'] = _action_mask_encoding(problem, device)
-    # if last_step is not None:
-    #     state_map['action_mask'][last_step] = 0
+    if last_step is not None:
+        state_map['action_mask'][last_step] = 0
     return state_map
 
 
@@ -131,7 +131,7 @@ def _target_encoding(problem, device):
 def _action_mask_encoding(problem, device):
     action_mask_tensor = torch.zeros(
             env_params.THEOREM_NUM,
-            dtype=torch.bool,
+            dtype=torch.uint8,
             device=device)
     theorems = initialize_theorems()
     for i, th in enumerate(theorems):

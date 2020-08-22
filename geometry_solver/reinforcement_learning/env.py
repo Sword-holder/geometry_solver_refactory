@@ -13,7 +13,7 @@ from geometry_solver.reinforcement_learning.utils import state_encoding, initial
 from geometry_solver.reinforcement_learning.utils import normal_distribution_value
 
 class Environment(gym.Env):
-    
+
     def __init__(self,
             problems: List[Problem],
             curriculum_learning=False,
@@ -35,7 +35,7 @@ class Environment(gym.Env):
         else:
             self.problem = self.chose_problem()
         return state_encoding(self.problem, self.device, None)
-        
+
     def step(self, action):
         """action is the index of theorem list."""
         action = int(action)
@@ -46,7 +46,7 @@ class Environment(gym.Env):
         reward = 100 if done else -1
         info = {}
         return obs, reward, done, info
-    
+
     def render(self, mode='human'):
         """
             - human: show deduction graph.
@@ -61,10 +61,10 @@ class Environment(gym.Env):
             print(state_encoding(self.problem))
         elif mode == 'ansi':
             print(self.problem.plain_word_answer)
-    
+
     def close(self):
         pass
-    
+
     def seed(self, seed=None):
         """Sets the seed for this env's random number generator(s).
         Note:
