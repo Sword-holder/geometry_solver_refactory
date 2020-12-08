@@ -24,4 +24,7 @@ class RelationshipBased(Condition):
 
     def __str__(self):
         return str(self.relationship)
+    
+    def __repr__(self):
+        return str(self.relationship)
 

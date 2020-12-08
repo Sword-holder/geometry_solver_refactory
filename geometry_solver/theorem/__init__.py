@@ -1,6 +1,7 @@
 from geometry_solver.theorem.theorem import Theorem
 from geometry_solver.theorem.triangle_angle_sum1 import TriangleAngleSum1
 from geometry_solver.theorem.triangle_angle_sum2 import TriangleAngleSum2
+from geometry_solver.theorem.triangle_angle_sum3 import TriangleAngleSum3
 from geometry_solver.theorem.line_length_sum import LineLengthSum
 from geometry_solver.theorem.common_vertex_angle_sum1 import CommonVertexAngleSum1
 from geometry_solver.theorem.common_vertex_angle_sum2 import CommonVertexAngleSum2
@@ -34,10 +35,14 @@ from geometry_solver.theorem.similar_triangle_judgment1 import SimilarTriangleJu
 from geometry_solver.theorem.similarity_ratio_determination import SimilarRatioDetermination
 from geometry_solver.theorem.n_angle_sector_proportional import NAngleSectorProportional
 from geometry_solver.theorem.n_line_sector_proportional import NLineSectorProportional
+from geometry_solver.theorem.two_sum_deduction1 import TwoSumDeduction1
+from geometry_solver.theorem.two_sum_deduction2 import TwoSumDeduction2
+
 
 valid_theorem = [
     TriangleAngleSum1,
-    TriangleAngleSum2,
+    # TriangleAngleSum2,
+    TriangleAngleSum3,
     LineLengthSum,
     CommonVertexAngleSum1,
     CommonVertexAngleSum2,
@@ -71,5 +76,7 @@ valid_theorem = [
     SimilarTriangleJudgment1,
     SimilarRatioDetermination,
     NAngleSectorProportional,
-    NLineSectorProportional
+    NLineSectorProportional,
+    TwoSumDeduction1,
+    TwoSumDeduction2
 ]

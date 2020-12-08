@@ -13,6 +13,7 @@ from geometry_solver.relationship.is_isosceles_triangle import IsIsoscelesTriang
 from geometry_solver.relationship.is_equilateral_triangle import IsEquilateralTriangle
 from geometry_solver.relationship.value_proportion import ValueProportion
 from geometry_solver.relationship.value_equivalence import ValueEquivalence
+from geometry_solver.relationship.two_sum import TwoSum
 
 __all__ = [
     'Relationship',
@@ -29,5 +30,6 @@ __all__ = [
     'IsIsoscelesTriangle',
     'IsEquilateralTriangle',
     'ValueProportion',
-    'ValueEquivalence'
+    'ValueEquivalence',
+    'TwoSum'
 ]

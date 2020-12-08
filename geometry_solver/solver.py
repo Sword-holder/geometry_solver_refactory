@@ -20,7 +20,7 @@ class Solver(object):
             policy = RandomPolicy()
         self.policy = policy
 
-    def solve(self, 
+    def solve(self,
             show_answer=True,
             show_process=True,
             show_graph=True,
