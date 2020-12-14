@@ -3,14 +3,12 @@ from geometry_solver.easy_input import link, set_angle, get_angle, get_problem, 
 
 
 def practical_test131():
-    link(A, B)
-    link(A, C)
-    link(B, C)
+    link(A, B, C)
+    link(B, D)
 
-    angle_equivalence('BAC', 'ACB')
-    set_angle('ABC', 90)
+    set_angle('ABD', 70)
 
-    get_angle('BAC')
+    get_angle('CBD')
 
     # assert result['answer'] == 75
     return get_problem()

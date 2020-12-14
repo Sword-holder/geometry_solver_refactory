@@ -8,6 +8,7 @@ from geometry_solver.common.index_helper import index_equivalent_value
 
 
 class TriangleAngleSum2(Theorem):
+    """已知一角，且剩余两角相等"""
 
     name = "triangle's angle sum 2"
 

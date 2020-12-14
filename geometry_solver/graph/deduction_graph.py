@@ -80,15 +80,17 @@ class DeductionGraph(object):
     def prune(self):
         if self.target_node is None:
             raise ValueError("The problem is solved!")
-        self.conditions = self._prune(self.target_node)
+        self.conditions = self._prune(self.target_node, set())
         
-    def _prune(self, condition):
+    def _prune(self, condition, visited):
         """Prune the graph and return pruned condition list."""
         if not condition.from_conditions:
             return [condition]
         useful_conditions = [condition]
         for cond in condition.from_conditions:
-            useful_conditions += self._prune(cond)
+            if cond not in visited:
+                visited.add(cond)
+                useful_conditions += self._prune(cond, visited)
         return useful_conditions
 
     def plain_word_answer(self):
