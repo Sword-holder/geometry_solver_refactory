@@ -3,7 +3,7 @@ from geometry_solver.relationship import (Collineation, CommonVertexAngle,
         IsEquilateralTriangle, IsIsoscelesTriangle, IsRightTriangle,
         NAngleSector, NLineSector, OppositeVerticalAngle, Parallel,
         Perpendicular, SimilarTriangle, SupplementaryAngle, 
-        ValueEquivalence, ValueProportion)
+        ValueEquivalence, ValueProportion, TwoSum)
 from geometry_solver.theorem import valid_theorem
 
 
@@ -27,7 +27,8 @@ RELATIONSHIP_ATTRIBUTES = {
     Perpendicular: [],
     SimilarTriangle: ['ratio'],
     SupplementaryAngle: [],
-    ValueEquivalence: []
+    ValueEquivalence: [],
+    TwoSum: ['sum_value']
 }
 
 ALL_ENTITY_TYPE = list(ENTITY_ATTRIBUTES.keys())

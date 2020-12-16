@@ -4,6 +4,7 @@ import copy
 import math
 
 import gym
+from gym.spaces.discrete import Discrete
 import torch
 from torch.distributions import Categorical
 
@@ -21,6 +22,7 @@ class Environment(gym.Env):
             device='cpu'):
         self.problem_candidates = problems
         self.theorems = initialize_theorems()
+        self.action_space = Discrete(len(self.theorems))
         self.curriculum_learning = curriculum_learning
         self.device = device
 
