@@ -10,6 +10,7 @@ from math import sqrt, log
 from tqdm import tqdm
 
 from geometry_solver.reinforcement_learning.env import Environment
+from geometry_solver.solver import Solver
 
 
 def moving_average(v, n):
@@ -67,7 +68,7 @@ class Runner(object):
             best_actions = []
             best_reward = float("-inf")
 
-            for _ in tqdm(range(self.playouts)):
+            for _ in range(self.playouts):
                 state = deepcopy(env)
                 sum_reward = 0
                 node = root
@@ -116,7 +117,7 @@ class Runner(object):
             sum_reward = 0
             for action in best_actions:
                 _, reward, terminal, _ = env.step(action)
-                print(f'action = {action}, reward = {reward}, is_terminal = {terminal}')
+                # print(f'action = {action}, reward = {reward}, is_terminal = {terminal}')
                 sum_reward += reward
                 if terminal:
                     break
@@ -126,11 +127,42 @@ class Runner(object):
             avg_time = (time()-start_time)/(loop+1)
             self.print_stats(loop+1, score, avg_time)
 
+            return best_actions
 
-def run_mcts(problems):
-    env = Environment(problems)
+
+def run_mcts(problem):
+    problem_copy = deepcopy(problem)
+    env = Environment([problem])
     # env = gym.make('CartPole-v1')
-    Runner(env, loops=1, playouts=200, max_depth=200).run()
+    actions = Runner(env, loops=1, playouts=200, max_depth=200).run()
+
+    problem = problem_copy
+    begin = time()
+    trial_times = 0
+    choser = iter(actions)
+
+    while not problem.solved:
+        theorem_id = next(choser)
+        theorem = env.theorems[theorem_id]
+        if problem.is_valid(theorem):
+            problem.deduct(theorem)
+        trial_times += 1
+    end = time()
+
+    solving_steps_before_prune = problem.solving_steps()
+    problem.graph.prune()
+    solving_steps_after_prune = problem.solving_steps()
+
+    result = {
+        'solving_steps_before_prune': solving_steps_before_prune,
+        'solving_steps_after_prune': solving_steps_after_prune,
+        'trial_times': trial_times,
+        'time_usage': end - begin
+    }
+
+    print(result)
+
+    return solving_steps_before_prune
 
 
 if __name__ == "__main__":

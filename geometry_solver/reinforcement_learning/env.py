@@ -13,6 +13,7 @@ from geometry_solver.theorem import Theorem
 from geometry_solver.reinforcement_learning.utils import state_encoding, initialize_theorems
 from geometry_solver.reinforcement_learning.utils import normal_distribution_value
 
+
 class Environment(gym.Env):
 
     def __init__(self,

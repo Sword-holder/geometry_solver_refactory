@@ -145,4 +145,3 @@ def normal_distribution_value(x, mu, std):
     divisor = math.sqrt(2 * math.pi * (std**2))
     return denominator / divisor
 
-

@@ -32,7 +32,7 @@ def test_all_problems():
     avg_after_prune_hist.append(total_after_prune / len(problems))
 
 
-for _ in range(100):
+for _ in range(30):
     test_all_problems()
 
 print(avg_trial_hist)

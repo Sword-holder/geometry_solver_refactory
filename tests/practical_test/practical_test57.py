@@ -10,7 +10,7 @@ def practical_test57():
 
     set_length('AC', 2)
     set_length('BC', 2)
-    set_angle('ACB', 120)
+    set_angle('ACB', 60)
     is_equilateral_triangle('ABC')
     perpendicular('AD', 'BC')
     
